@@ -1,0 +1,45 @@
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #EDFEEE;
+$my-font-size: 28px;
+$ip-font-size: 30px;
+
+div.form-container {
+  margin-top: -10px;
+  font-size: $my-font-size;
+  div.flex-input-tag {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 380px;
+    margin: auto auto 10px;
+    label {
+      font-family: 'Quicksand', sans-serif;
+    }
+    input {
+      border: none;
+      border-bottom: 1px solid black;
+      background: none;
+      width: 450px;
+      margin: 4px auto;
+      font-size: $ip-font-size;  
+      &[type="text"]{
+          font-family: 'Nunito', sans-serif;   
+      }
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
+  }
+  button {
+    color: $light-green;
+    background-color: $dark-green;
+    padding: 15px 50px;
+    border-radius: 30px;
+    border: none;
+    margin: 20px auto 40px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+}

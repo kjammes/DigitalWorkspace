@@ -1,0 +1,72 @@
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #F4FFF5;
+$my-font-size: 28px;
+
+div.main {
+  color: $dark-green;
+  margin: 30px auto;
+  height: 580px;
+  background-color: $green;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 940px;
+  section.left-top {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 600px;
+    }
+    h3 {
+      font-family: Quicksand;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 35px;
+      margin-top: 50px;
+    }
+  }
+  section.right-bottom {
+    background-color: $light-green;
+    width: 50%;
+    div {
+      margin:auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      div.logo {
+        height: 100px;
+        margin: 20px auto 40px;
+      }
+      h3 {
+        font-weight: normal;
+        font-family: 'Quicksand', sans-serif;
+        font-size: $my-font-size;
+        a {
+          text-decoration: underline;
+          cursor: pointer;
+          &:hover,
+          &:active,
+          &:focus {
+            color: black;
+            opacity: .6;
+          }
+        }
+      }
+      h3.welcome-message {
+        margin-top: -10px;
+        margin-bottom: 40px;
+        // font-size: 20px;
+      }
+      h3.register-login {
+        margin-top: -10px;
+        margin-bottom: 40px;
+        // font-size: 20px;
+      }
+    }
+  }
+}

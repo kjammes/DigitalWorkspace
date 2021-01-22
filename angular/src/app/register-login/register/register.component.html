@@ -1,0 +1,21 @@
+<form (submit)="onSubmit(f)" #f="ngForm">
+  <div class="form-container">
+    <div class="username flex-input-tag">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" ngModel required>
+    </div>
+    <div class="email flex-input-tag">
+      <label for="email">E-Mail</label>
+      <input type="email" name="email" id="email" ngModel email required>
+    </div>
+    <div class="password flex-input-tag">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" ngModel required>
+    </div>
+    <div class="confirm-password flex-input-tag">
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirm-password" ngModel required>
+    </div>
+    <button type="submit" [disabled]="isInvalid">Register</button>
+  </div>
+</form>
