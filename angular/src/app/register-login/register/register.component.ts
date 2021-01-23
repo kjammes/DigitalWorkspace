@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { NgForm } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   isInvalid:boolean;
 
-  constructor() {}
+  constructor(private apiService:ApiService) {}
   
   ngOnInit(): void {}
 
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
       alert('Please Enter Valid Details and Fill In All The Fields');
       return;
     }
-    console.log(form.value);
+    this.apiService.register(form.value);
     form.reset();
   }
 }
