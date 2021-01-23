@@ -1,17 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private storage:LocalStorageService,
+    private router: Router
+    ) {}
 
   login(formValue: { email: string; password: string }) {
+    if(this.storage.getToken()) {
+      this.router.navigate(['/']);
+    }
     this.http
       .post('http://localhost:3000/login', formValue)
-      .subscribe((response) => {
-        console.log(response);
+      .subscribe((response:{ token:string }) => {
+        console.log(response.token);
+        if( response.token ) {
+          this.storage.setToken(response.token);
+        }
+        this.router.navigate(['/']);
       });
   }
 
@@ -21,11 +34,18 @@ export class ApiService {
     password: string;
     confirmPassword: string;
   }) {
+    if (this.storage.getToken()) {
+      this.router.navigate(['/']);
+    }
     console.log(formValue);
     this.http
       .post('http://localhost:3000/register', formValue)
-      .subscribe((response) => {
+      .subscribe((response: { token: string }) => {
         console.log(response);
+        if (response.token) {
+          this.storage.setToken(response.token);
+        }
+        this.router.navigate(['/']);
       });
   }
 

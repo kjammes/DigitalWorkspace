@@ -12,12 +12,17 @@ router.get('/', function(req, res, next) {
 router.post('/login', routerCtrl.loginUser );
 router.post('/register', routerCtrl.registerUser );
 
-router.post('/add', middleware.authorize , (req,res) => {
-  res.json({
-    num1: 4,
-    num2: 4,
-    res: 8
-  });
-} )
+// router.post('/add', middleware.authorize , (req,res) => {
+//   res.json({
+//     num1: 4,
+//     num2: 4,
+//     res: 8
+//   });
+// } )
+
+
+//for testing only
+router.delete('/all' , routerCtrl.deleteAllUsers )
+router.get('/all' , routerCtrl.getAllUsers )
 
 module.exports = router;

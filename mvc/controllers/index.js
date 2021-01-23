@@ -1,22 +1,13 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const passport = require("passport");
+const mongoose = require("mongoose");
 const crypto = require('crypto');
-
-function createJSONWebToken(email, password) {
-  return jwt.sign(
-    {
-      email: email,
-      password: password,
-    },
-    process.env.JWT_SECRET
-  );
-}
+const User = mongoose.model("User");
 
 const registerUser = ({body} ,res) => {
   console.log("Inside registerUser")
   if(
-    !body.username ||
     !body.email ||
+    !body.username ||
     !body.password ||
     !body.confirmPassword
     ) {
@@ -24,32 +15,87 @@ const registerUser = ({body} ,res) => {
       message: "You need to fill in all the fields to register"
     } );
   }
-  
 
-  if ( body.password !== body.confirmPassword){
+  if (body.password !== body.confirmPassword) {
     return res.json({
-      message: "Password and Confirm Password do not match"
-    })
+      message: "Password and Confirm Password do not match",
+    });
   }
-
-  let salt = "a25209d32b86d390a49595f45b68c6fc893442125b32ca9c7d6d028bbdb83abbab59420a392c847290d273a2835e0f98d84344c36db1bb8b9201f88468769cba";
-  let password = body.password;
-  try{
+  
+  const user = new User();
+  user.username = body.username.trim();
+  user.email = body.email.trim();
+  // user.setPassword(body.password);
+  let salt = "random";
+  let saltedpassword = "random";
+  try {
     salt = crypto.randomBytes(64).toString("hex");
-    password = crypto.pbkdf2Sync(body.password, salt, 1000, 64, "sha512").toString("hex");
+    saltedpassword = crypto.pbkdf2Sync(body.password, salt, 1000, 64, "sha512").toString("hex");
+    user.salt = salt;
+    user.password = saltedpassword;
   } catch(err) {
     console.log(err);
   }
+
+  user.save((err, newUser) => {
+    if (err) {
+      console.log(err);
+      if (
+        err.errmsg &&
+        err.errmsg.includes("duplicate key error") &&
+        err.errmsg.includes("email")
+      ) {
+        return res.json({
+          message: "The provided email is already registered.",
+        });
+      }
+      return res.json({ message: "Something went wrong." });
+    } else {
+      const token = newUser.getJwt();
+      res.status(201).json({ token });
+    }
+  });
 }
 
-const loginUser = ({body}, res) => {
+const loginUser = (req, res) => {
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
 
-  const jToken = createJSONWebToken(body.email, body.password);
-  res.json({ jToken });
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    if (user) {
+      const token = user.getJwt();
+      res.status(201).json({ token });
+    } else {
+      res.json(info);
+    }
+  })(req, res);
 }
+
+const deleteAllUsers = function (req, res) {
+  User.deleteMany({}, (err, info) => {
+    if (err) {
+      return res.send({ error: err });
+    }
+    return res.json({ message: "Deleted All Users", info: info });
+  });
+};
+
+const getAllUsers = function (req, res) {
+  User.find((err, users) => {
+    if (err) {
+      return res.send({ error: err });
+    }
+    return res.json({ users: users });
+  });
+};
 
 module.exports = {
-  createJSONWebToken,
   registerUser,
-  loginUser
+  loginUser,
+  deleteAllUsers,
+  getAllUsers
 }

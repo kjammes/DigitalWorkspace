@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { RegisterComponent } from './register-login/register/register.component';
 import { LoginComponent } from './register-login/login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterLoginComponent, RegisterComponent, LoginComponent],
+  declarations: [AppComponent, RegisterLoginComponent, RegisterComponent, LoginComponent, HomeComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
