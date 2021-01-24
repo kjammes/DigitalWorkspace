@@ -1,8 +1,10 @@
+require("dotenv").config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
 
 require('./mvc/models/db')
 
@@ -20,6 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "angular", "build")));
+
+app.use(passport.initialize());
 
 app.use("/", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");

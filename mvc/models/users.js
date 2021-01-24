@@ -20,17 +20,18 @@ const userSchema = new mongoose.Schema({
   }
 });  
 
-userSchema.methods.validatePassword = (password) => {
-  try {
-    const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, "sha512").toString("hex");
-    return hash === this.password;
-  } catch(err) {
-    console.log("=========SOME ERROR========="); 
-    console.log("=========SOME ERROR========="); 
-    console.log(err); 
-    console.log("=========SOME ERROR========="); 
-    console.log("=========SOME ERROR========="); 
-  }
+userSchema.methods.setPassword = function (password) {
+  this.salt = crypto.randomBytes(64).toString("hex");
+  this.password = crypto
+    .pbkdf2Sync(password, this.salt, 1000, 64, "sha512")
+    .toString("hex");
+};
+
+userSchema.methods.validatePassword = function(password) {
+  const hash = crypto.
+    pbkdf2Sync(password, this.salt, 1000, 64, "sha512").
+    toString("hex");
+  return hash === this.password;
 }
 
 userSchema.methods.getJwt = function () {

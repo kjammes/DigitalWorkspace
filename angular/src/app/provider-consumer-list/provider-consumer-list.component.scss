@@ -1,0 +1,15 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #F4FFF5;
+$my-font-size: rem(28px);
+
+section.list-body {
+  margin: rem(72px) auto;
+  height: rem(1200px);
+  width: rem(1520px);
+  background-color: $light-green;
+}

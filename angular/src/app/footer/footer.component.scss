@@ -1,0 +1,15 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #F4FFF5;
+$my-font-size: rem(28px);
+
+footer {
+  height: rem(366px);
+  width: 100%;
+  background-color: $light-green;
+  color: $dark-green;
+}

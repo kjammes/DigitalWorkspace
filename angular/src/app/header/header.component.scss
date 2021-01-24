@@ -1,0 +1,94 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #F4FFF5;
+$my-font-size: rem(28px);
+
+.container {
+  margin: auto rem(200px);
+}
+
+header {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: $light-green;
+  margin: 0;
+  height: rem(106px);
+  display: flex;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  nav {
+    ul {
+      width: rem(1520px);
+      margin: auto rem(200px);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      li {
+        list-style: none;
+        font-size: $my-font-size;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-family: 'Nunito', sans-serif;
+        &.logo{
+          svg {
+            height: rem(80px);
+            width: rem(236px);
+          }
+        }
+        input[type="text"] {
+          width: rem(400px);
+          height: rem(50px);
+          display: flex;
+          align-items: center;
+          justify-items: center;
+          font-family: 'Nunito', sans-serif;
+          font-size: $my-font-size;
+          color: $light-green;
+          background-color: $dark-green;
+          text-indent: rem(20px);
+          border-radius: rem(50px);
+          &::placeholder,
+          &:active,
+          &:focus {
+            color: $light-green;
+            outline: none;
+          }
+        }
+        button.search-logo-u {
+          border: none;
+          background-color: transparent;
+          margin-left: rem(-65px);
+        }
+        &.profile-name-img {
+          margin-left: rem(50px) ;
+          a {
+            color: $dark-green;
+            text-decoration: none;
+            cursor: pointer;
+          }
+        }
+        button.header-btn {
+          color: $light-green;
+          background-color: $dark-green;
+          font-family: 'Nunito', sans-serif;
+          border: none;
+          font-size: $my-font-size;
+          height: rem(50px);
+          width: rem(200px);
+          padding: auto rem(30px);
+          border-radius: rem(10px);
+          &:hover {
+            transition: all .5s;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,9 +9,21 @@ import { RegisterLoginComponent } from './register-login/register-login.componen
 import { RegisterComponent } from './register-login/register/register.component';
 import { LoginComponent } from './register-login/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { ProviderConsumerListComponent } from './provider-consumer-list/provider-consumer-list.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterLoginComponent, RegisterComponent, LoginComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    RegisterLoginComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProviderConsumerListComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

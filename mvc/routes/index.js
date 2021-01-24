@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 router.post('/login', routerCtrl.loginUser );
 router.post('/register', routerCtrl.registerUser );
 
+//http://localhost:3000/login 
+
 // router.post('/add', middleware.authorize , (req,res) => {
 //   res.json({
 //     num1: 4,

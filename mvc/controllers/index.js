@@ -16,7 +16,7 @@ const registerUser = ({body} ,res) => {
     } );
   }
 
-  if (body.password !== body.confirmPassword) {
+  if ( body.password.length>=8 &&  body.password !== body.confirmPassword) {
     return res.json({
       message: "Password and Confirm Password do not match",
     });
@@ -25,17 +25,7 @@ const registerUser = ({body} ,res) => {
   const user = new User();
   user.username = body.username.trim();
   user.email = body.email.trim();
-  // user.setPassword(body.password);
-  let salt = "random";
-  let saltedpassword = "random";
-  try {
-    salt = crypto.randomBytes(64).toString("hex");
-    saltedpassword = crypto.pbkdf2Sync(body.password, salt, 1000, 64, "sha512").toString("hex");
-    user.salt = salt;
-    user.password = saltedpassword;
-  } catch(err) {
-    console.log(err);
-  }
+  user.setPassword(body.password);
 
   user.save((err, newUser) => {
     if (err) {
@@ -75,6 +65,8 @@ const loginUser = (req, res) => {
   })(req, res);
 }
 
+
+//for testing only
 const deleteAllUsers = function (req, res) {
   User.deleteMany({}, (err, info) => {
     if (err) {
