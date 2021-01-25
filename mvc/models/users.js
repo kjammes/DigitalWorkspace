@@ -39,7 +39,7 @@ userSchema.methods.getJwt = function () {
     {
       _id: this._id,
       email: this.email,
-      name: this.name,
+      username: this.username,
     },
     process.env.JWT_SECRET
   );

@@ -53,10 +53,12 @@ header {
           background-color: $dark-green;
           text-indent: rem(20px);
           border-radius: rem(50px);
-          &::placeholder,
+          &::placeholder {
+            color: #f4fff573;
+            outline: none;
+          }
           &:active,
           &:focus {
-            color: $light-green;
             outline: none;
           }
         }
@@ -71,6 +73,10 @@ header {
             color: $dark-green;
             text-decoration: none;
             cursor: pointer;
+            width: rem(120px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
           }
         }
         button.header-btn {

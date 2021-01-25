@@ -8,8 +8,56 @@ $light-green: #F4FFF5;
 $my-font-size: rem(28px);
 
 footer {
-  height: rem(366px);
-  width: 100%;
+  overflow-x: hidden;
+  height: rem(300px);
+  width: 100vw;
   background-color: $light-green;
   color: $dark-green;
+  font-family: 'Nunito', sans-serif;
+  font-size: $my-font-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  section.contact-section {
+    height: rem(60px);
+    width: rem(1520px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: rem(50px) auto;
+    border-top: 2px solid $dark-green;
+    border-bottom: 2px solid $dark-green;
+    div.fb {
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        color: $dark-green;
+        width: rem(290px);
+        h1 {
+          font-weight: normal;
+          font-size: $my-font-size;
+          text-emphasis: none;
+        }
+      }
+    }
+
+    div.phone-contact {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: rem(40px);
+      h1.contact-numbers {
+        margin-left: rem(10px);
+        font-weight: normal;
+        font-size: $my-font-size;
+        text-emphasis: none;
+      }
+    }
+  }
 }
