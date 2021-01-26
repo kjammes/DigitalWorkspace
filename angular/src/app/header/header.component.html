@@ -1,7 +1,7 @@
 <header>
   <nav>
     <ul class="container">
-      <li class="logo">
+      <li class="logo" routerLink="/">
         <svg
           width="314"
           height="108"
@@ -42,7 +42,7 @@
         </button>
       </li>
       <li class="profile-name-img">
-        <a>
+        <a (click)="goToAbout()">
           {{ username }}
           <svg
             width="45"
@@ -59,7 +59,7 @@
         </a>
       </li>
       <li>
-        <button class="message header-btn">Message</button>
+        <button class="message header-btn" (click)="goToMessageSection()">Message</button>
       </li>
       <li>
         <button class="SingOut header-btn" (click)="logout()">Sign Out</button>

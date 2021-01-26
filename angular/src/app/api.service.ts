@@ -24,7 +24,7 @@ export class ApiService {
         if( response.token ) {
           this.storage.setToken(response.token);
         }
-        this.router.navigate(['/home-page']);
+        this.router.navigate(['/home-page/show-jobs']);
       });
   }
 
@@ -45,7 +45,7 @@ export class ApiService {
         if (response.token) {
           this.storage.setToken(response.token);
         }
-        this.router.navigate(['/home-page']);
+        this.router.navigate(['/home-page/show-jobs']);
       });
   }
 

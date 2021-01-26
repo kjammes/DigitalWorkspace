@@ -1,0 +1,98 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$light-green: #F4FFF5;
+$my-font-size: rem(28px);
+$heading-font: rem(36px);
+$nunito: 'Nunito', sans-serif;
+$qs: 'Quicksand', sans-serif;
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+section.chat-main {
+  min-height: rem(679px);
+  max-height: rem(1000px);
+  width: rem(1520px);
+  margin: rem(70px) auto;
+  padding: rem(27px) rem(45px);
+  background-color: $light-green;
+  color: $dark-green;
+  font-family: $nunito;
+  position: relative;
+  section.username {
+    height: rem(74px);
+    font-size: $heading-font;
+    font-family: $qs;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 2px solid $dark-green;
+    border-bottom: 2px solid $dark-green;
+    svg {
+      margin-left: rem(10px);
+    }
+  }
+
+  section.chat {
+    min-height: rem(600px);
+  }
+
+  section.send-message {
+    position: absolute;
+    margin-top: rem(27px);
+    width: rem(1430px);
+    bottom: rem(27px);
+    form {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      input[type="text"] {
+        color: $dark-green;
+        background-color: $light-green;
+        font-family: $nunito;
+        font-size: $my-font-size;
+        border: 2px solid $dark-green;
+        border-radius: rem(10px);
+        width: rem(1271px);
+        text-indent: rem(10px);
+        &:active,
+        &:focus {
+          outline: none;
+        }
+        &::placeholder {
+          color: #718072de;
+          outline: none;
+        }
+      }
+      button[type="submit"] {
+        font-family: $nunito;
+        font-size: $my-font-size;
+        background-color: $dark-green;
+        color: $light-green;
+        border-radius: rem(10px);
+        border: none;
+        padding: rem(1px) rem(16px);
+        border: 2px solid $dark-green;
+        width: rem(145px);
+        margin-right: rem(-60px);
+        &:hover {
+          background-color: $light-green;
+          color: $dark-green;
+          border: 2px solid $dark-green;
+          transition: all .4s;
+        }
+      }
+    }
+    
+  }
+}

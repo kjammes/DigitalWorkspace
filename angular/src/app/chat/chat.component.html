@@ -1,0 +1,27 @@
+<section class="chat-main">
+  <section class="username">
+    <h1> {{ chattingWith }} </h1>
+    <svg
+      width="45"
+      height="55"
+      viewBox="0 0 45 55"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="22.5" cy="27.5" r="22.5" fill="#2F4536" />
+      <path
+        d="M22.64 41.2C22.16 41.2 21.76 41.0667 21.44 40.8C21.1467 40.5067 21 40.1067 21 39.6V22.72C21 22.2133 21.1467 21.8267 21.44 21.56C21.76 21.2667 22.16 21.12 22.64 21.12C23.12 21.12 23.5067 21.2667 23.8 21.56C24.0933 21.8267 24.24 22.2133 24.24 22.72V39.6C24.24 40.1333 24.0933 40.5333 23.8 40.8C23.5067 41.0667 23.12 41.2 22.64 41.2ZM22.64 16.92C22 16.92 21.48 16.7333 21.08 16.36C20.68 15.9867 20.48 15.4933 20.48 14.88C20.48 14.2933 20.68 13.8133 21.08 13.44C21.48 13.0667 22 12.88 22.64 12.88C23.28 12.88 23.8 13.0667 24.2 13.44C24.6 13.8133 24.8 14.2933 24.8 14.88C24.8 15.4933 24.6 15.9867 24.2 16.36C23.8 16.7333 23.28 16.92 22.64 16.92Z"
+        fill="#F4FFF5"
+      />
+    </svg>
+  </section>
+  <section class="chat">
+
+  </section>
+  <section class="send-message">
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+      <input type="text" name="message" placeholder="Send Message" autocomplete="off">
+      <button type="submit">SEND</button>
+    </form>
+  </section>
+</section>

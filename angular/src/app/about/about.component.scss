@@ -1,0 +1,129 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #F4FFF5;
+$location-color: #5C8A6B;
+$my-font-size: rem(28px);
+$heading-font: rem(36px);
+$nunito: 'Nunito', sans-serif;
+$qs: 'Quicksand', sans-serif;
+
+section.main{
+  margin: rem(70px) auto;
+  padding: rem(80px) rem(50px) ;
+  width: rem(1470px);
+  background-color: $light-green;
+  color: $dark-green;
+  font-family: $nunito;
+  border-bottom: 2px solid $dark-green;
+  section.profile {
+    margin-bottom: rem(60px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    div.profile-photo-name-location {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      svg.logo {
+        margin-top: rem(30px);
+      }
+      div.name-location {
+        margin: 0;
+        margin-left: rem(10px);
+        h3 {
+          padding: 0;
+          font-weight: normal;
+          font-size: $heading-font;
+          margin-bottom: 0;
+        }
+        div.location {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          h5 {
+            margin: 0;
+            margin-left: rem(10px);
+            font-size: $my-font-size;
+            color: $location-color;
+            font-weight: lighter;
+          }
+        }
+      }
+    }
+  }
+  div.switch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: rem(440px);
+    font-size: $heading-font;
+    h3 {
+      font-weight: normal;
+    }
+    button.provider-consumer {
+      color: $dark-green;
+      border: 2px solid $dark-green;
+      background-color: transparent;
+      font-size: $heading-font;
+      padding: rem(10px) rem(20px);
+      border-radius: rem(8px);
+      cursor: pointer;
+      &:hover {
+        transition: all .4s;
+        background-color: $dark-green;
+        color: $light-green;
+        border: 2px solid $dark-green;
+      }
+    }
+  }
+
+  section.about {
+    div.title-content {
+      margin-left: rem(20px);
+    }
+  }
+
+  section.skills {
+    div.title-content {
+      display: inline;
+      button.skills-btn {
+        color: $light-green;
+        background-color: $dark-green;
+        font-size: $my-font-size;
+        padding: rem(10px) rem(30px);
+        margin: rem(10px) rem(20px);
+        border-radius: rem(25px);
+        cursor: pointer;
+        border: none;
+      }
+    }
+  }
+}
+
+h1.title-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: rem(48px);
+  width: rem(162px);
+  font-size: $heading-font;
+}
+div.title-content {
+  font-size: $my-font-size;
+}
+
+svg.edit-button {
+  cursor: pointer;
+  &:hover {
+    transition: all .3s;
+    transform: scale(1.1);
+  }
+}

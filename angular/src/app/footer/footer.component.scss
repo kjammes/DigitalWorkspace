@@ -10,7 +10,7 @@ $my-font-size: rem(28px);
 footer {
   overflow-x: hidden;
   height: rem(300px);
-  width: 100vw;
+  width: 100%;
   background-color: $light-green;
   color: $dark-green;
   font-family: 'Nunito', sans-serif;
@@ -20,6 +20,7 @@ footer {
   justify-content: center;
   align-items: center;
   section.contact-section {
+    overflow: hidden;
     height: rem(60px);
     width: rem(1520px);
     display: flex;

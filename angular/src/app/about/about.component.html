@@ -1,0 +1,59 @@
+<section class="main">
+  <section class="profile">
+    <div class="profile-photo-name-location">
+      <svg
+        class="logo" 
+        width="93"
+        height="93"
+        viewBox="0 0 93 93"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M32.3077 45C29.1231 45 26.5385 47.5846 26.5385 50.7692C26.5385 53.9539 29.1231 56.5385 32.3077 56.5385C35.4923 56.5385 38.0769 53.9539 38.0769 50.7692C38.0769 47.5846 35.4923 45 32.3077 45ZM60 45C56.8154 45 54.2308 47.5846 54.2308 50.7692C54.2308 53.9539 56.8154 56.5385 60 56.5385C63.1846 56.5385 65.7692 53.9539 65.7692 50.7692C65.7692 47.5846 63.1846 45 60 45ZM46.1538 0C20.6769 0 0 20.6769 0 46.1539C0 71.6308 20.6769 92.3077 46.1538 92.3077C71.6308 92.3077 92.3077 71.6308 92.3077 46.1539C92.3077 20.6769 71.6308 0 46.1538 0ZM46.1538 83.0769C25.8 83.0769 9.23077 66.5077 9.23077 46.1539C9.23077 44.8154 9.32308 43.4769 9.46154 42.1846C20.3538 37.3385 28.9846 28.4308 33.5077 17.4C41.8615 29.2154 55.6154 36.9231 71.1692 36.9231C74.7692 36.9231 78.2308 36.5077 81.5538 35.7231C82.5231 39 83.0769 42.5077 83.0769 46.1539C83.0769 66.5077 66.5077 83.0769 46.1538 83.0769Z"
+          fill="#2F4536"
+        />
+      </svg>
+      <div class="name-location">
+        <h3> {{ username }} </h3>
+        <div class="location">
+          <svg width="21" height="30" viewBox="0 0 21 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5 0C4.695 0 0 4.695 0 10.5C0 18.375 10.5 30 10.5 30C10.5 30 21 18.375 21 10.5C21 4.695 16.305 0 10.5 0ZM10.5 14.25C8.43 14.25 6.75 12.57 6.75 10.5C6.75 8.43 8.43 6.75 10.5 6.75C12.57 6.75 14.25 8.43 14.25 10.5C14.25 12.57 12.57 14.25 10.5 14.25Z" fill="#5C8A6B"/>
+          </svg>
+          <h5> {{city}},{{state}},{{country}} </h5>
+        </div>
+      </div>
+    </div>
+    <div class="switch">
+      <h3>
+        Switch to 
+      </h3>
+      <button class="provider-consumer"> PROVIDER </button>
+    </div>
+  </section>
+  <hr>
+  <section class="about">
+    <h1 class="title-heading">
+      About 
+      <svg class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="#2F4536"/>
+        <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
+      </svg>
+    </h1>
+    <div class="title-content">
+      {{ aboutUser }}
+    </div>
+  </section>
+  <section class="skills">
+    <h1 class="title-heading">
+      Skills
+      <svg class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="#2F4536"/>
+        <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
+      </svg>
+    </h1>
+    <div class="title-content" *ngFor="let skill of skillsList" >
+      <button class="skills-btn"> {{ skill }} </button>
+    </div>
+  </section>
+</section>

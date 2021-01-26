@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProviderConsumerListComponent } from './provider-consumer-list/provider-consumer-list.component';
+import { AboutComponent } from './about/about.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ProviderConsumerListComponent } from './provider-consumer-list/provider
     HeaderComponent,
     FooterComponent,
     ProviderConsumerListComponent,
+    AboutComponent,
+    ChatComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

@@ -41,4 +41,12 @@ export class LocalStorageService {
   public removeToken() {
     localStorage.removeItem(this.tokenName);
   }
+
+  getUserName() {
+    let username: string = this.getParsedToken().username;
+    if( !username ) {
+      username = "NoUser";
+    } 
+    return username;
+  }
 }
