@@ -20,7 +20,7 @@
   </section>
   <section class="send-message">
     <form (ngSubmit)="onSubmit(form)" #form="ngForm">
-      <input type="text" name="message" placeholder="Send Message" autocomplete="off">
+      <input type="text" name="message" ngModel placeholder="Send Message" autocomplete="off" required>
       <button type="submit">SEND</button>
     </form>
   </section>

@@ -9,19 +9,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+//Login Register
 router.post('/login', routerCtrl.loginUser );
 router.post('/register', routerCtrl.registerUser );
 
-//http://localhost:3000/login 
+//location services
+router.post('/get-location',middleware.authorize , routerCtrl.returnLocation );
 
-// router.post('/add', middleware.authorize , (req,res) => {
-//   res.json({
-//     num1: 4,
-//     num2: 4,
-//     res: 8
-//   });
-// } )
+//handling messages
+router.post('/send-message/:to', middleware.authorize, routerCtrl.sendMessage);
 
+//handling about and skills
+router.post('/get-about-skills', middleware.authorize , routerCtrl.getUserData);
+router.post('/update-about', middleware.authorize , routerCtrl.updateAboutSection);
 
 //for testing only
 router.delete('/all' , routerCtrl.deleteAllUsers )

@@ -14,6 +14,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ProviderConsumerListComponent } from './provider-consumer-list/provider-consumer-list.component';
 import { AboutComponent } from './about/about.component';
 import { ChatComponent } from './chat/chat.component';
+import { AlertComponent } from './alert/alert.component';
+import { EditTextComponent } from './edit-text/edit-text.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ChatComponent } from './chat/chat.component';
     ProviderConsumerListComponent,
     AboutComponent,
     ChatComponent,
+    AlertComponent,
+    EditTextComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

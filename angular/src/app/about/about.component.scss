@@ -19,6 +19,9 @@ section.main{
   color: $dark-green;
   font-family: $nunito;
   border-bottom: 2px solid $dark-green;
+  em.message {
+    font-size: $my-font-size;
+  }
   section.profile {
     margin-bottom: rem(60px);
     display: flex;
@@ -85,8 +88,10 @@ section.main{
   }
 
   section.about {
+    margin-bottom: rem(20px);
     div.title-content {
       margin-left: rem(20px);
+      font-size: $my-font-size;
     }
   }
 
@@ -102,6 +107,7 @@ section.main{
         border-radius: rem(25px);
         cursor: pointer;
         border: none;
+        font-weight: normal;
       }
     }
   }

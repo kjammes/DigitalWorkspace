@@ -20,7 +20,7 @@
           <svg width="21" height="30" viewBox="0 0 21 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.5 0C4.695 0 0 4.695 0 10.5C0 18.375 10.5 30 10.5 30C10.5 30 21 18.375 21 10.5C21 4.695 16.305 0 10.5 0ZM10.5 14.25C8.43 14.25 6.75 12.57 6.75 10.5C6.75 8.43 8.43 6.75 10.5 6.75C12.57 6.75 14.25 8.43 14.25 10.5C14.25 12.57 12.57 14.25 10.5 14.25Z" fill="#5C8A6B"/>
           </svg>
-          <h5> {{city}},{{state}},{{country}} </h5>
+          <h5> {{locationObject.city}},{{locationObject.state}},{{locationObject.country}} </h5>
         </div>
       </div>
     </div>
@@ -35,24 +35,25 @@
   <section class="about">
     <h1 class="title-heading">
       About 
-      <svg class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg (click)="onClickEdit('about');" class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="24" cy="24" r="24" fill="#2F4536"/>
         <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
       </svg>
     </h1>
     <div class="title-content">
-      {{ aboutUser }}
+      {{ aboutObj.about }}
     </div>
   </section>
+  <em class="message">(Enter comma seperated skills to update your skills section)</em>
   <section class="skills">
     <h1 class="title-heading">
-      Skills
-      <svg class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      Skills 
+      <svg (click)="onClickEdit('skills');" class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="24" cy="24" r="24" fill="#2F4536"/>
         <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
       </svg>
-    </h1>
-    <div class="title-content" *ngFor="let skill of skillsList" >
+    </h1> 
+    <div class="title-content" *ngFor="let skill of aboutObj.skills" >
       <button class="skills-btn"> {{ skill }} </button>
     </div>
   </section>

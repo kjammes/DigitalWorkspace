@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ApiService } from 'src/app/api.service';
 
 @Component({
@@ -10,18 +11,20 @@ import { ApiService } from 'src/app/api.service';
 export class RegisterComponent implements OnInit {
   isInvalid:boolean;
 
-  constructor(private apiService:ApiService) {}
+  constructor(
+    private apiService:ApiService,
+    private title: Title) {}
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.title.setTitle('Register - Digital Workspace');
+  }
 
   onSubmit(form: NgForm) {
-    console.log("form.valid is ",form.valid)
     if( 
       !form.valid || 
       form.value.password !== form.value.confirmPassword ||
       form.value.password.length <8 ) {
       this.isInvalid = false;
-      console.log("isInvalid is ",this.isInvalid)
       alert('Please Enter Valid Details and Fill In All The Fields');
       return;
     }

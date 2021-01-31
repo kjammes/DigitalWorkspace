@@ -1,0 +1,76 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$bg-color : #f4fff580;
+$green: #5C8A6B;
+$light-green: #F4FFF6;
+$dark-green: #2F4536;
+
+$normal-font: rem(28px);
+$header-font: rem(36px);
+
+$nunito: 'Nunito', sans-serif;
+$qs: 'Quicksand', sans-serif;
+
+section.main-body {
+  background-color: $bg-color;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  section.edit-comp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $green;
+    border-radius: rem(10px);
+    height: rem(700px);
+    width: rem(1350px);
+    & * {
+      margin: rem(10px);
+    }
+    label.edit-label {
+      text-transform:uppercase;
+      font-family: $qs;
+      font-size: $header-font;
+      color: $light-green;
+    }
+    textarea#edited-text {
+      background-color: $light-green;
+      border: transparent;
+      border-radius: rem(10px);
+      -webkit-border-radius: rem(10px);
+      -moz-border-radius: rem(10px);
+      width: rem(1287px);
+      height: rem(430px);
+      padding: rem(50px) 0;
+      text-indent: rem(30px);
+      font-family: $nunito;
+      font-size: $normal-font;
+      &:focus {
+        outline: $dark-green;
+      }
+    }
+    button {
+      height: rem(54px);
+      width: rem(180px);
+      color: $dark-green;
+      background-color: $light-green;
+      border: none;
+      font-family: $qs;
+      font-size: $header-font;
+      border-radius: rem(10px);
+      &:hover {
+        border: 2px solid $light-green;
+        color: $light-green;
+        background-color: transparent;
+        transition-timing-function: cubic-bezier(1,-1.75,1,-0.34);
+        transition: all .4s;
+      }
+    }
+  }
+}

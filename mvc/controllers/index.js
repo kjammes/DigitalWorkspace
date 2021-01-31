@@ -1,7 +1,7 @@
 const passport = require("passport");
 const mongoose = require("mongoose");
-const crypto = require('crypto');
 const User = mongoose.model("User");
+const fetch = require('node-fetch')
 
 const registerUser = ({body} ,res) => {
   console.log("Inside registerUser")
@@ -65,6 +65,91 @@ const loginUser = (req, res) => {
   })(req, res);
 }
 
+const returnLocation = async (req,res) => {
+  let country = "N/A";
+  let city = "N/A";
+  let state = "N/A";
+  await fetch(
+    "https://www.mapquestapi.com/geocoding/v1/reverse?key=ZnbkZcbWDs9sByGfAed75y4H75QLxxQX&location=" +
+      req.body.latitude +
+      "%2C" +
+      req.body.longitude +
+      "&outFormat=json&thumbMaps=false"
+  )
+  .then((response) => response.json())
+  .then((responseJson) => {
+    country = responseJson.results[0].locations[0].adminArea1;
+    city = responseJson.results[0].locations[0].adminArea5;
+    state = responseJson.results[0].locations[0].adminArea3;
+  })
+  .catch((err) => {
+    console.log(err);
+    return res.json({ error:err });
+  });
+  res.json({
+    country: country,
+    state: state,
+    city: city,
+  })
+}
+
+const sendMessage = function ({ body, payload, params }, res) {
+  console.log(payload);
+  console.log(body);
+  console.log(params);
+  res.json({
+    test: "test",
+  });
+};
+
+const getUserData = function( req,res ) {
+  console.log(req.payload);
+  let userObj = {
+    about: "",
+    skills: [],
+  }
+  User.findOne( { _id: req.payload._id } , 'about skills' , (err,newUser) => {
+    if(err) { return res.json(err); }
+    console.log(newUser);
+    userObj.about = newUser.about;
+    userObj.skills = newUser.skills;
+    console.log(userObj);
+    return res.json(userObj);
+  } )
+}
+
+const updateAboutSection = function (req, res) {
+  console.log(req.body);
+  let section = req.body.section;
+  if( !section )
+    return res.json( { message: "No body passed to update anything :/" } );
+  if( section === 'about' ) {
+    User.updateOne(
+      { _id: req.payload._id }, 
+      { about : req.body.text },
+      (err,res) => {
+        if(err) { return res.json({err:err}) }
+        console.log("Succesfully updated about section",res);
+      }
+    );
+    return res.json({ message: "updated about" });
+  } else if( section === 'skills' ) {
+    let skillsArr = req.body.text.split(',');
+    console.log(skillsArr);
+    User.updateOne(
+      { _id: req.payload._id },
+      { skills: skillsArr },
+      (err, res) => {
+        if (err) {
+          return res.json({ err: err });
+        }
+        console.log("Succesfully updated skills section", res);
+      }
+    );
+    return res.json({message:'updated skills'});
+  }
+  res.json({message:'Updated nothing'});
+};
 
 //for testing only
 const deleteAllUsers = function (req, res) {
@@ -89,5 +174,9 @@ module.exports = {
   registerUser,
   loginUser,
   deleteAllUsers,
-  getAllUsers
+  getAllUsers,
+  returnLocation,
+  sendMessage,
+  getUserData,
+  updateAboutSection
 }
