@@ -24,11 +24,11 @@
         </div>
       </div>
     </div>
-    <div class="switch">
-      <h3>
+    <div class="switch" [hidden]="isProvider">
+      <h3 [hidden]="isProvider">
         Switch to 
       </h3>
-      <button class="provider-consumer"> PROVIDER </button>
+      <button class="provider-consumer" (click)="onSwitchToProvider()" [hidden]="isProvider"> PROVIDER </button>
     </div>
   </section>
   <hr>
@@ -44,8 +44,8 @@
       {{ aboutObj.about }}
     </div>
   </section>
-  <em class="message">(Enter comma seperated skills to update your skills section)</em>
-  <section class="skills">
+  
+  <section class="skills" [hidden]="!isProvider">
     <h1 class="title-heading">
       Skills 
       <svg (click)="onClickEdit('skills');" class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,8 @@
       </svg>
     </h1> 
     <div class="title-content" *ngFor="let skill of aboutObj.skills" >
-      <button class="skills-btn"> {{ skill }} </button>
+      <button class="skills-btn" > {{ skill }} </button>
     </div>
   </section>
+  <em class="message">(Enter comma seperated skills to update your skills section)</em>
 </section>

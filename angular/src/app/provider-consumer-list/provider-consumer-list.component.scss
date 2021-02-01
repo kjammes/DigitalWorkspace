@@ -2,14 +2,62 @@
   @return $size / 16px * 1rem;
 }
 
-$dark-green: #2F4536;
-$green: #C6EBC9;
-$light-green: #F4FFF5;
-$my-font-size: rem(28px);
+$dark-green: #2f4536;
+$green: #c6ebc9;
+$light-green: #f4fff5;
+
+$normal-font: rem(28px);
+$header-font: rem(36px);
+
+$nunito: 'Nunito', sans-serif;
+$qs: 'Quicksand', sans-serif;
+
 
 section.list-body {
   margin: rem(72px) auto;
-  height: rem(1200px);
+  min-height: rem(500px);
+  max-height: rem(1200px);
   width: rem(1520px);
-  background-color: $light-green;
+  background-color: transparent;
+  padding: 0;
+  section.list-item {
+    background-color: $light-green;
+    width: 100%;
+    height: rem(280px);
+    padding: rem(30px);
+    border-radius: rem(10px);
+    margin: rem(20px) auto;
+    h1.username {
+      font-weight: normal;
+      padding: 0;
+      margin: 0;
+      padding-bottom: rem(20px);
+      font-family: $qs;
+      font-size: $header-font;
+    }
+    div.about-user {
+      font-size: $normal-font;
+      font-family: $nunito;
+      color: $dark-green;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; 
+      -webkit-box-orient: vertical;
+    }
+    section.user-skills {
+      display: inline-flex;
+      margin: rem(20px) rem(10px);
+      align-content: center;
+      div {
+        color: $light-green;
+        background-color: $dark-green;
+        border-radius: rem(30px);
+        padding: rem(10px) rem(30px);
+        font-size: $normal-font;
+        font-family: $nunito;
+        margin-right: rem(20px);
+      }
+    }
+  }
 }

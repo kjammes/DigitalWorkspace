@@ -103,23 +103,21 @@ const sendMessage = function ({ body, payload, params }, res) {
 };
 
 const getUserData = function( req,res ) {
-  console.log(req.payload);
   let userObj = {
     about: "",
     skills: [],
   }
   User.findOne( { _id: req.payload._id } , 'about skills' , (err,newUser) => {
     if(err) { return res.json(err); }
-    console.log(newUser);
+    // console.log(newUser);
     userObj.about = newUser.about;
     userObj.skills = newUser.skills;
-    console.log(userObj);
+    // console.log(userObj);
     return res.json(userObj);
   } )
 }
 
 const updateAboutSection = function (req, res) {
-  console.log(req.body);
   let section = req.body.section;
   if( !section )
     return res.json( { message: "No body passed to update anything :/" } );
@@ -134,7 +132,7 @@ const updateAboutSection = function (req, res) {
     );
     return res.json({ message: "updated about" });
   } else if( section === 'skills' ) {
-    let skillsArr = req.body.text.split(',');
+    let skillsArr = req.body.text.split(',').slice(0,6);
     console.log(skillsArr);
     User.updateOne(
       { _id: req.payload._id },
@@ -150,6 +148,34 @@ const updateAboutSection = function (req, res) {
   }
   res.json({message:'Updated nothing'});
 };
+
+const switchToProvider = function (req, res) {
+  User.updateOne(
+    { _id: req.payload._id }, 
+    { provider : true },
+    (err,res) => {
+      if(err) { return res.json({err:err}) }
+      console.log("Succesfully switched to provider",res);
+    }
+  );
+  res.json({ message: "Succesfully switched to provider" });
+};
+
+const getProvidersList = function (req, res) {
+  User.find( { provider:true }, 'about username skills' , (err,userList) => {
+    if(err) console.log(err);
+    // console.log(res);
+    return res.send(userList);
+  } )
+}
+
+const getConsumersList = function (req, res) {
+  User.find( { provider:false }, ' about username ' , (err,userList) => {
+    if(err) console.log(err);
+    // console.log(res);
+    return res.send(userList);
+  } )
+}
 
 //for testing only
 const deleteAllUsers = function (req, res) {
@@ -178,5 +204,8 @@ module.exports = {
   returnLocation,
   sendMessage,
   getUserData,
-  updateAboutSection
-}
+  updateAboutSection,
+  switchToProvider,
+  getConsumersList,
+  getProvidersList
+};

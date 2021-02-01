@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { GetLocationService } from '../get-location.service';
 import { LocalStorageService } from '../local-storage.service';
@@ -25,17 +26,22 @@ export class AboutComponent implements OnInit {
     city: 'N/A',
   };
 
+  isProvider:boolean = this.storage.getParsedToken().provider;
+
   constructor(
     private storage: LocalStorageService,
     private getLocation: GetLocationService,
     private showEditService: ShowEditTextService,
     private apiService: ApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.username = this.storage.getUserName();
 
-    this.aboutObj = this.apiService.getAboutSkills();
+    this.apiService.getAboutSkills().subscribe((res)=> {
+      this.aboutObj = res;
+    });
 
     if (window.navigator && window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(
@@ -81,9 +87,17 @@ export class AboutComponent implements OnInit {
     this.showEditService.skillsUpdateSuccess.subscribe( (skillsArr:string[]) => {
       this.aboutObj.skills = skillsArr;
     } );
+
+    this.apiService.switchToProviderEvent.subscribe(res=> this.isProvider = res);
   }
 
   onClickEdit(action:string) {
     this.showEditService.editClicked.emit(action);
+  }
+
+  onSwitchToProvider() {
+    this.apiService.switchToProvider();
+    this.storage.removeToken();
+    this.router.navigate(['/login']);
   }
 }

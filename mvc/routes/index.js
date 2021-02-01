@@ -23,6 +23,13 @@ router.post('/send-message/:to', middleware.authorize, routerCtrl.sendMessage);
 router.post('/get-about-skills', middleware.authorize , routerCtrl.getUserData);
 router.post('/update-about', middleware.authorize , routerCtrl.updateAboutSection);
 
+//handling provider switch
+router.post('/switch-to-provider', middleware.authorize, routerCtrl.switchToProvider);
+
+//handling getting provider or consumer
+router.post('/get-consumer-list', middleware.authorize, routerCtrl.getConsumersList);
+router.post('/get-provider-list', middleware.authorize, routerCtrl.getProvidersList);
+
 //for testing only
 router.delete('/all' , routerCtrl.deleteAllUsers )
 router.get('/all' , routerCtrl.getAllUsers )

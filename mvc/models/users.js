@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
   loaction: locationSchema,
   about: {
     type:String,
-    default: "Give something about you! 😃"
+    default: "Give something about you!"
   },
   skills: [String]
 });
@@ -78,6 +78,7 @@ userSchema.methods.getJwt = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
+      provider: this.provider
     },
     process.env.JWT_SECRET
   );

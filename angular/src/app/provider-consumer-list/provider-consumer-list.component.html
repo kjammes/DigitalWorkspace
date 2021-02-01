@@ -1,3 +1,13 @@
 <section class="list-body">
-  
+  <section class="list-item" *ngFor="let userObj of userObjArr">
+    <h1 class="username"> {{ userObj.username }} </h1>
+    <div class="about-user">
+      {{ userObj.about }}
+    </div>
+    <section class="user-skills" >
+      <div
+      *ngFor="let skillItem of userObj.skills; let i=index;" [hidden]="hideSkills(i)"
+      > {{ skillItem }} </div>
+    </section>
+  </section>
 </section>

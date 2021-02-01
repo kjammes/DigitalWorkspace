@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ShowEditTextService } from './show-edit-text.service';
 
@@ -15,6 +16,8 @@ export class ApiService {
     private editEventEmitter: ShowEditTextService
   ) {}
 
+  @Output() switchToProviderEvent: EventEmitter<boolean> = new EventEmitter();
+
   login(formValue: { email: string; password: string }) {
     if (this.storage.getToken()) {
       this.router.navigate(['/']);
@@ -22,7 +25,6 @@ export class ApiService {
     this.http
       .post('http://localhost:3000/login', formValue)
       .subscribe((response: { token: string }) => {
-        console.log(response.token);
         if (response.token) {
           this.storage.setToken(response.token);
         }
@@ -68,12 +70,12 @@ export class ApiService {
       });
   }
 
-  getAboutSkills(): { about: string; skills: string[] } {
+  getAboutSkills(): Observable<any> {
     let aboutObj = {
       about: '',
       skills: [],
     };
-    this.http
+    return this.http
       .post(
         'http://localhost:3000/get-about-skills',
         {},
@@ -83,11 +85,6 @@ export class ApiService {
           }),
         }
       )
-      .subscribe((res: { about: string; skills: string[] }) => {
-        aboutObj.about = res.about;
-        aboutObj.skills = res.skills;
-      });
-    return aboutObj;
   }
 
   updateUser(text: string, action: string) {
@@ -105,13 +102,56 @@ export class ApiService {
         }
       )
       .subscribe((res: { message: string }) => {
-        console.log(res);
         if (res.message === 'updated about') {
           this.editEventEmitter.aboutUpdateSuccess.emit(text);
-        } else if ( res.message === 'updated skills' ) {
+        } else if (res.message === 'updated skills') {
           let skillsArr = text.split(',');
           this.editEventEmitter.skillsUpdateSuccess.emit(skillsArr);
         }
       });
   }
+
+  switchToProvider() {
+    this.http
+      .post('http://localhost:3000/switch-to-provider',
+        {},
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          })
+        }
+      ).subscribe((res : { message: string })=>{
+        if( res.message === 'Succesfully switched to provider' ) {
+          // console.log(res.message)
+          this.switchToProviderEvent.emit(true);
+        }
+      });
+  }
+
+  getProvidersList(): Observable<any> {
+    return this.http
+      .post(
+        'http://localhost:3000/get-provider-list',
+        {},
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          }),
+        }
+      )
+  }
+
+  getConsumersList(): Observable<any> {
+    return this.http
+      .post(
+        'http://localhost:3000/get-consumer-list',
+        {},
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          }),
+        }
+      )
+  }
+
 }
