@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { LocalStorageService } from '../local-storage.service';
+import { ShowEditTextService } from '../show-edit-text.service';
 
 @Component({
   selector: 'app-header',
@@ -11,17 +13,23 @@ import { LocalStorageService } from '../local-storage.service';
 export class HeaderComponent implements OnInit {
   placeholder = 'freelancers';
   username: string = 'John';
+  queryS: string = "";
 
   constructor(
     private authService: AuthService,
     private storage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private api:ApiService,
+    private eventService:ShowEditTextService
   ) {}
 
   ngOnInit(): void {
     this.username = this.storage.getUserName();
     if (this.username.length > 4)
       this.username = this.username.slice(0, 4) + '...';
+    if ( this.storage.getParsedToken().provider ) {
+      this.placeholder = "jobs";
+    }
   }
 
   logout() {
@@ -30,9 +38,12 @@ export class HeaderComponent implements OnInit {
 
   goToAbout() {
     this.router.navigate(['home-page/about']);
+    this.eventService.hideNewPostButton.emit(false);
   }
-  
-  goToMessageSection() {
-    this.router.navigate(['home-page/chat']);
+
+  searchUserJob() {
+    this.api.getSearchResults(this.queryS).subscribe( result => {
+      this.eventService.searchResults.emit(result);
+    } )
   }
 }

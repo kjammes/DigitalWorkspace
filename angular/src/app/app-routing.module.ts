@@ -5,8 +5,8 @@ import { RegisterLoginComponent } from './register-login/register-login.componen
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { ChatComponent } from './chat/chat.component';
 import { ProviderConsumerListComponent } from './provider-consumer-list/provider-consumer-list.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
   {
@@ -54,8 +54,8 @@ const routes: Routes = [
         data: { loggedIn: true },
       },
       {
-        path: 'chat',
-        component: ChatComponent,
+        path: 'create-post',
+        component: CreatePostComponent,
         canActivate: [AuthService],
         data: { loggedIn: true },
       },

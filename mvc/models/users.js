@@ -6,31 +6,44 @@ const locationSchema = new mongoose.Schema({
   country: {
     type: String,
     default: "India",
-    required: true
+    required: true,
   },
   state: {
     type: String,
     default: "Maharashtra",
-    required: true
+    required: true,
   },
   city: {
     type: String,
     default: "Mumbai",
-    required: true
+    required: true,
   },
 });
 
-const messageSchema = new mongoose.Schema({
-  from_id: {
+const postSchema = new mongoose.Schema({
+  content: {
     type: String,
     required: true,
   },
-  content: [
-    {
-      messenger: String,
-      message: String,
-    },
-  ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  post_by: {
+    type: String,
+  },
+  posted_by_name: String,
+});
+
+const linkSchema = new mongoose.Schema({
+  socialMediaName: {
+    type: String,
+    required: true,
+  },
+  link: {
+    type: String,
+    required: true,
+  },
 });
 
 const userSchema = new mongoose.Schema({
@@ -49,13 +62,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  messages: [messageSchema],
   loaction: locationSchema,
   about: {
-    type:String,
-    default: "Give something about you!"
+    type: String,
+    default: "Give something about you!",
   },
-  skills: [String]
+  skills: [String],
+  posts: [postSchema],
+  links: [linkSchema],
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -78,7 +92,7 @@ userSchema.methods.getJwt = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
-      provider: this.provider
+      provider: this.provider,
     },
     process.env.JWT_SECRET
   );
@@ -86,5 +100,4 @@ userSchema.methods.getJwt = function () {
 
 mongoose.model("User", userSchema);
 mongoose.model("Location", locationSchema);
-mongoose.model("Message", messageSchema);
-// mongoose.model("Post", postSchema);
+mongoose.model("Post", postSchema);

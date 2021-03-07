@@ -4,7 +4,7 @@
 
 $dark-green: #2F4536;
 $green: #C6EBC9;
-$light-green: #F4FFF5;
+$light-green: #ffff;
 $location-color: #5C8A6B;
 $my-font-size: rem(28px);
 $heading-font: rem(36px);
@@ -108,6 +108,99 @@ section.main{
         cursor: pointer;
         border: none;
         font-weight: normal;
+      }
+    }
+  }
+
+  section.social-links {
+    border-top: 1px solid $dark-green;
+    margin: rem(40px) 0;
+    h1.title-heading {
+      width: auto ;
+    }
+    div.for-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+      div.link-and-edit {
+        font-size: $my-font-size;
+        font-family: $nunito;
+        color: $dark-green;
+        div.link-and-main-edit {
+          margin-bottom: rem(30px);
+          margin-top: rem(-20px);
+          button.save-button {
+            font-family: $nunito;
+            font-size: $my-font-size;
+            background-color: $dark-green;
+            color: $light-green;
+            border: none;
+            padding: rem(10px) rem(30px);
+            margin: auto rem(20px);
+            margin-left: 30px;
+            &:hover {
+              opacity: .8;
+              transform: scale(1.04);
+              transition: all .4s;
+            }
+          }
+          a#to-media {
+            color: $dark-green;
+            text-transform: capitalize;
+            display: inline-block;
+            &:hover {
+              transform: scale(1.1) translateX(3%);
+              transition: all .4s;
+            }
+          }
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          div.form-inputs {
+            display: inline-flex;
+            margin-bottom: rem(8px);
+            min-width: rem(500px);
+            div.text-desc-for-form-input {
+              min-width: rem(280px);
+              margin-right: rem(10px);
+            }
+            input[type="text"] {
+              border: none;
+              border-bottom: 1px solid $dark-green;
+              min-width: rem(400px);
+              text-indent: 5px;
+              font-size: $my-font-size;
+              font-family: $nunito;
+              &:focus {
+                transform: scale(1.04);
+                transition: all .4s;
+              }
+              &::placeholder {
+                opacity: .8;
+              }
+            }
+          }
+          
+          button[type="submit"] {
+            width: max-content;
+            color: $light-green;
+            background-color: $dark-green;
+            font-size: $my-font-size;
+            font-family: $nunito;
+            padding: rem(10px) rem(30px);
+            border: none;
+            &:hover {
+              opacity: .8;
+              transform: scale(1.04);
+              transition: all .4s;
+            }
+          }
+        }
+
       }
     }
   }

@@ -1,4 +1,4 @@
-<section class="list-body">
+<section  class="list-body" *ngIf="!isProvider">
   <section class="list-item" *ngFor="let userObj of userObjArr">
     <h1 class="username"> {{ userObj.username }} </h1>
     <div class="about-user">
@@ -9,5 +9,31 @@
       *ngFor="let skillItem of userObj.skills; let i=index;" [hidden]="hideSkills(i)"
       > {{ skillItem }} </div>
     </section>
+    <button class="btn btn-check-profile" (click)="showAbout(userObj)" > Check Profile </button>
+  </section>
+</section>
+
+<!-- FOR SERVICE PROVIDER -->
+<section  class="list-body" *ngIf="isProvider">
+  <section class="side-bar-job-desc" [hidden]="hideSideJobBar">
+    <div class="background-sidebar">
+      <button class="back-button" (click)="hideSideJobBar = true">
+        Go Back
+      </button>
+      <div class="job-desc">
+        <h1>JOB DESCRIPTION</h1>
+        {{ jobDesc }}
+      </div>
+      <div class="jobpostedby">
+        Job posted by - {{ jobBy }}
+      </div>
+    </div>
+  </section>
+  <section class="list-item" *ngFor="let jobObj of jobPosts">
+    <div class="about-user jobdescdiv" (click)="showJobSideBar(jobObj)" >
+      {{ jobObj.content }}
+    </div>
+    <h1 class="username jobdesc">Job posted by - <em> {{ jobObj.posted_by_name }} </em> </h1>
+    <button (click)="showAbout(jobObj)" class="btn btn-check-profile" > Check Profile </button>
   </section>
 </section>

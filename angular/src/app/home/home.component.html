@@ -1,3 +1,6 @@
 <app-header></app-header>
+  <div class="create-post-div" *ngIf="!isProvider">
+    <a routerLink="create-post" class="create-post" [hidden]="hideButton" (click)="onCreateNewPost()" >Create a job post  +  </a>
+  </div>
   <router-outlet></router-outlet>
 <app-footer></app-footer>

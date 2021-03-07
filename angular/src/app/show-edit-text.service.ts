@@ -12,5 +12,7 @@ export class ShowEditTextService {
   @Output() saveClicked: EventEmitter<string> = new EventEmitter();
   @Output() aboutUpdateSuccess: EventEmitter<string> = new EventEmitter();
   @Output() skillsUpdateSuccess: EventEmitter<string[]> = new EventEmitter();
+  @Output() hideNewPostButton: EventEmitter<boolean> = new EventEmitter();
+  @Output() searchResults: EventEmitter<any> = new EventEmitter();
   
 }

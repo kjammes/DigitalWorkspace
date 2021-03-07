@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { ShowEditTextService } from './show-edit-text.service';
 
@@ -17,6 +17,7 @@ export class ApiService {
   ) {}
 
   @Output() switchToProviderEvent: EventEmitter<boolean> = new EventEmitter();
+  chatWithPersonEvent = new BehaviorSubject<any>('service');
 
   login(formValue: { email: string; password: string }) {
     if (this.storage.getToken()) {
@@ -53,12 +54,14 @@ export class ApiService {
       });
   }
 
-  sendMessage(message: string) {
+  sendMessage(message: string,to:string) {
     console.log(message);
     this.http
       .post(
-        `http://localhost:3000/send-message/advesrverver23`,
-        {},
+        `http://localhost:3000/send-message/601e928aefdce60924d4fb51`,
+        {
+          message: message,
+        },
         {
           headers: new HttpHeaders({
             Authorization: `Bearer ${this.storage.getToken()}`,
@@ -70,15 +73,13 @@ export class ApiService {
       });
   }
 
-  getAboutSkills(): Observable<any> {
-    let aboutObj = {
-      about: '',
-      skills: [],
-    };
+  getAboutSkills(user_id?:string): Observable<any> {
     return this.http
       .post(
         'http://localhost:3000/get-about-skills',
-        {},
+        {
+          user_id
+        },
         {
           headers: new HttpHeaders({
             Authorization: `Bearer ${this.storage.getToken()}`,
@@ -154,4 +155,62 @@ export class ApiService {
       )
   }
 
+  getChats() {
+    return this.http.post(
+      'http://localhost:3000/get-chats',
+      {},
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
+  }
+
+  getUserNameById(id:string) {
+    return this.http.post(
+      'http://localhost:3000/get-name-by-id',
+      {
+        person_id: id,
+      },
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
+  }
+
+  createPost(content:string) {
+    this.http.post(
+      'http://localhost:3000/create-post',
+      {
+        content:content,
+      },
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    ).subscribe( result => {
+      console.log(result);
+    } )
+  }
+
+  getPosts() {
+    return this.http
+      .get('http://localhost:3000/get-posts-list', {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      })
+  }
+
+  getSearchResults(queryS:string) {
+    return this.http.get('http://localhost:3000/get-search-results?query='+queryS, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getToken()}`,
+      }),
+    });
+  }
 }

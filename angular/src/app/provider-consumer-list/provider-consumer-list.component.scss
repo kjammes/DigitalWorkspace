@@ -4,7 +4,7 @@
 
 $dark-green: #2f4536;
 $green: #c6ebc9;
-$light-green: #f4fff5;
+$light-green: #fff;
 
 $normal-font: rem(28px);
 $header-font: rem(36px);
@@ -16,10 +16,69 @@ $qs: 'Quicksand', sans-serif;
 section.list-body {
   margin: rem(72px) auto;
   min-height: rem(500px);
-  max-height: rem(1200px);
-  width: rem(1520px);
+  max-height: fit-content;
+  width: rem(1560px);
   background-color: transparent;
   padding: 0;
+  position: relative;
+  overflow-x: hidden;
+  section.side-bar-job-desc {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: #c6ebc96b;
+    top: 0;
+    left: 0;
+    padding: 0 rem(200px);
+    z-index: 1;
+    div.background-sidebar {
+      position: absolute;
+      top: 0;
+      width: rem(1710px);
+      height: 100vh;
+      text-indent: 0;
+      background-color: #fff;
+      button.back-button {
+        font-size: rem(40px);
+        background-color: $green;
+        color: $dark-green;
+        padding: rem(9px) rem(60px);
+        border: none;
+        font-family: $qs;
+        margin-left: rem(150px);
+        &:hover {
+          opacity: .8;
+        }
+      }
+      div.job-desc {
+        font-size: $normal-font;
+        font-family: $nunito;
+        width: rem(1000px);
+        margin-left: rem(150px);
+        margin-top: rem(60px);
+        background-color: $green;
+        color: $dark-green;
+        padding: rem(70px);
+        padding-left: rem(50px);
+        padding-top: 10px;
+        z-index: 3;
+        height: 60vh;
+        overflow-y: auto;
+      }
+      div.jobpostedby {
+        font-size: $normal-font;
+        font-family: $qs;
+        width: fit-content;
+        margin-left: rem(150px);
+        margin-top: rem(20px);
+        margin-bottom: rem(50px);
+        background-color: $green;
+        color: $dark-green;
+        padding: rem(20px);
+        font-weight: bolder;
+      }
+    }
+  }
   section.list-item {
     background-color: $light-green;
     width: 100%;
@@ -27,6 +86,7 @@ section.list-body {
     padding: rem(30px);
     border-radius: rem(10px);
     margin: rem(20px) auto;
+
     h1.username {
       font-weight: normal;
       padding: 0;
@@ -34,6 +94,13 @@ section.list-body {
       padding-bottom: rem(20px);
       font-family: $qs;
       font-size: $header-font;
+      &.jobdesc {
+        font-size: $normal-font;
+        margin-top: rem(20px);
+        em {
+          font-weight: bolder;
+        }
+      }
     }
     div.about-user {
       font-size: $normal-font;
@@ -44,6 +111,14 @@ section.list-body {
       display: -webkit-box;
       -webkit-line-clamp: 3; 
       -webkit-box-orient: vertical;
+      padding-right: rem(40px);
+      &.jobdescdiv {
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.02) translateX(.5%);
+          transition: all .5s;
+        }
+      }
     }
     section.user-skills {
       display: inline-flex;
@@ -57,6 +132,20 @@ section.list-body {
         font-size: $normal-font;
         font-family: $nunito;
         margin-right: rem(20px);
+      }
+    }
+    button.btn-check-profile {
+      font-family: $qs;
+      font-size: $normal-font;
+      color: $light-green;
+      background-color: $dark-green;
+      display: block;
+      border: none;
+      padding: rem(15px) rem(30px);
+      transform: scale(.6);
+      &:hover { 
+        transform: scale(1.2) translateX(30%);
+        transition: all .6s;
       }
     }
   }

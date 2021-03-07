@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="switch" [hidden]="isProvider">
+    <div id="provider-switch" class="switch" [hidden]="isProvider">
       <h3 [hidden]="isProvider">
         Switch to 
       </h3>
@@ -35,7 +35,7 @@
   <section class="about">
     <h1 class="title-heading">
       About 
-      <svg (click)="onClickEdit('about');" class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg id="svg-for-edit" (click)="onClickEdit('about');" class="edit-button svg-for-edit" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="24" cy="24" r="24" fill="#2F4536"/>
         <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
       </svg>
@@ -48,7 +48,7 @@
   <section class="skills" [hidden]="!isProvider">
     <h1 class="title-heading">
       Skills 
-      <svg (click)="onClickEdit('skills');" class="edit-button" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg (click)="onClickEdit('skills');" class="edit-button svg-for-edit" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="24" cy="24" r="24" fill="#2F4536"/>
         <path d="M11 31.2998V36.3778H16.6076L33.1461 21.4011L27.5386 16.3231L11 31.2998ZM37.4826 17.4741C38.0658 16.946 38.0658 16.0929 37.4826 15.5648L33.9835 12.3961C33.4003 11.868 32.4583 11.868 31.8751 12.3961L29.1386 14.8742L34.7461 19.9522L37.4826 17.4741Z" fill="#F4FFF5"/>
       </svg>
@@ -57,5 +57,51 @@
       <button class="skills-btn" > {{ skill }} </button>
     </div>
   </section>
-  <em class="message">(Enter comma seperated skills to update your skills section)</em>
+  <em class="message" *ngIf="isProvider">(Enter comma seperated skills to update your skills section)</em>
+
+  <section class="social-links">
+    <h1 class="title-heading" > Social Links </h1>
+    <div class="for-container">
+      
+      <div class="link-and-edit">
+        <div class="link-and-main-edit">
+          Visit my <a href="https://www.instagram.com/jrk4real/" class="to-media" target="_blank" id="to-media"> Instagram </a>
+          <button class="save-button social-btn-hide" (click)="onClickEditLink()" [hidden]="!hideEditLinks"> Edit Link </button>
+        </div>
+        <form id="f">
+
+          <div class="form-inputs">
+            <div class="text-desc-for-form-input">
+              Name of the platform 
+            </div>
+            <input 
+            type="text" 
+            name="media_name" 
+            id="media_name" 
+            class="median_name" 
+            placeholder="e.g. Facebook"
+            autocomplete="off">
+          </div>
+          
+          <div class="form-inputs">
+            <div class="text-desc-for-form-input">
+              Link to profile 
+            </div>
+            <input 
+            type="text" 
+            name="media_link" 
+            id="media_link" 
+            class="median_link" 
+            placeholder="e.g. https://www.facebook.com"
+            autocomplete="off">
+          </div>
+          
+          <button type="submit" class="social-btn-hide" (click)='onClickSaveChanges()'>Save Changes</button>
+        </form>
+      </div>
+
+
+    </div>
+    <button > Add new social media link </button>
+  </section>
 </section>

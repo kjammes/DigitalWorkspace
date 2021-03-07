@@ -13,9 +13,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProviderConsumerListComponent } from './provider-consumer-list/provider-consumer-list.component';
 import { AboutComponent } from './about/about.component';
-import { ChatComponent } from './chat/chat.component';
 import { AlertComponent } from './alert/alert.component';
 import { EditTextComponent } from './edit-text/edit-text.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { JobFullDescriptionComponent } from './job-full-description/job-full-description.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,10 @@ import { EditTextComponent } from './edit-text/edit-text.component';
     FooterComponent,
     ProviderConsumerListComponent,
     AboutComponent,
-    ChatComponent,
     AlertComponent,
     EditTextComponent,
+    CreatePostComponent,
+    JobFullDescriptionComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
