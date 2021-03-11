@@ -1,0 +1,29 @@
+<hr>
+<div class="main">
+  <form (submit)="onSubmit(f)" #f="ngForm" [hidden]="hideForm">
+    <div class="input-group name-group">
+      <label for="site-name"> Name of the platform : </label>
+      <input 
+      type="text" 
+      id="site-name" 
+      placeholder="e.g. Facebook" 
+      autocomplete="off"
+      name="name"
+      ngModel
+      required>
+    </div>
+    <div class="input-group link-group">
+      <label for="site-name"> Link to your profile : </label>
+      <input 
+      type="text" 
+      id="site-link" 
+      placeholder="e.g. https://www.facebook.com" 
+      autocomplete="off"
+      name="link"
+      ngModel
+      required>
+    </div>
+    <button type="submit" class="btn"> Save </button>
+  </form>
+  <button class="btn" id="add-social" [hidden]="!hideForm" (click)="hideForm = false" > Add new social media link </button>
+</div>

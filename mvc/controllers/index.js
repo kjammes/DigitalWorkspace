@@ -2,7 +2,9 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const fetch = require("node-fetch");
-const Post = mongoose.model("Post")
+const Post = mongoose.model("Post");
+const LinkModel = mongoose.model("Link");
+const ObjectID = require("mongodb").ObjectID;
 
 //Login Register
 const registerUser = ({ body }, res) => {
@@ -293,6 +295,110 @@ const getSearchResults = function ({ query, payload }, res) {
   }
 };
 
+//Social media links
+const addNewSocialLink = function(req,res) {
+  if (!req.body.details) {
+    return res.status(400).json({
+      message: "Insufficient data sent with the request.",
+    });
+  }
+
+  let userId = req.payload._id;
+
+  const linkObj = new LinkModel();
+
+  linkObj.socialMediaName = req.body.details.name;
+  linkObj.link = req.body.details.link;
+
+  User.findById(userId, (err, user) => {
+    if (err) {
+      return res.json({ err: err });
+    }
+
+    let newLink = linkObj.toObject();
+    newLink.name = req.payload.name;
+    user.links.push(newLink);
+    user.save((err) => {
+      if (err) {
+        return res.json({ err: err });
+      }
+      return res
+        .status(201)
+        .json({ message: "Successfully Added New Link", newLink: newLink });
+    });
+  });
+}
+
+const updateSocialLink = function(req,res) {
+  if (!req.body.details) {
+    return res.status(400).json({
+      message: "Insufficient data sent with the request.",
+    });
+  }
+
+  console.log(req.body.details);
+
+  let userId = req.payload._id;
+
+  User.findOneAndUpdate(
+    {
+      _id: userId,
+      "links._id": req.body.details._id,
+    },
+    {
+      $set: {
+        "links.$.socialMediaName": req.body.details.socialMediaName,
+        "links.$.link": req.body.details.link,
+      },
+    }, function( err,success ) {
+      if( err ) return res.json({err});
+      res.json({
+        message: "Successfully updated the value",
+        success
+      })
+    }
+  );
+}
+
+const deleteSocialLink = function(req,res) {
+  console.log("Delete social link");
+  console.log("Params",req.params);
+  console.log("Query",req.query);
+  console.log(req.body);
+  if (!req.body._id) {
+    return res.status(400).json({
+      message: "Insufficient data sent with the request.",
+    });
+  }
+
+  let userId = req.payload._id;
+  let linkId = req.body._id;
+  console.log(req.params);
+  console.log(linkId);
+
+  User.findOneAndUpdate(
+    {
+      _id: userId,
+    },
+    {
+      $pull: {
+        links: {
+          _id: linkId,
+        },
+      },
+    },
+    function (err,result) {
+      if (err){ 
+        console.log("faced an issue");
+        return res.json({ err })
+      };
+      res.json({
+        message: "Successfully deleted the link", result
+      });
+    }
+  );
+}
+
 
 //for testing only
 const deleteAllUsers = function (req, res) {
@@ -327,5 +433,8 @@ module.exports = {
   getUserNameById,
   createPost,
   getPosts,
-  getSearchResults
+  getSearchResults,
+  addNewSocialLink,
+  updateSocialLink,
+  deleteSocialLink
 };

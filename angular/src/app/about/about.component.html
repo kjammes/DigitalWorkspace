@@ -59,16 +59,25 @@
   </section>
   <em class="message" *ngIf="isProvider">(Enter comma seperated skills to update your skills section)</em>
 
+  <!-- <div *ngFor="let linkObj of aboutObj.links">
+    {{linkObj.socialMediaName}}
+  </div> -->
   <section class="social-links">
     <h1 class="title-heading" > Social Links </h1>
-    <div class="for-container">
+    <div class="for-container" >
       
       <div class="link-and-edit">
-        <div class="link-and-main-edit">
-          Visit my <a href="https://www.instagram.com/jrk4real/" class="to-media" target="_blank" id="to-media"> Instagram </a>
-          <button class="save-button social-btn-hide" (click)="onClickEditLink()" [hidden]="!hideEditLinks"> Edit Link </button>
+        <div class="link-and-main-edit" *ngFor="let linkObj of aboutObj.links">
+          Visit my <a 
+          [href]="linkObj.link" 
+          class="to-media" target="_blank" id="to-media"> {{linkObj.socialMediaName}} </a>
+          <button class="save-button social-btn-hide" (click)="onClickEditLink(linkObj)" [hidden]="!hideEditLinks" *ngIf='myIddd === aboutObj._id'> Edit Link </button>
+          <button class="delete-button social-btn-hide" (click)="onClickDeleteLink(linkObj)" [hidden]="!hideEditLinks" *ngIf='myIddd === aboutObj._id'> Delete Link </button>
         </div>
-        <form id="f">
+        <div class="currently-updating" *ngIf="!!tempLinkObj.socialMediaName" style="margin-bottom: 10px;">
+          Currently updating link to {{ tempLinkObj.socialMediaName }}
+        </div>
+        <form id="f" (submit)="onClickSaveChanges(f)" #f="ngForm" >
 
           <div class="form-inputs">
             <div class="text-desc-for-form-input">
@@ -80,7 +89,8 @@
             id="media_name" 
             class="median_name" 
             placeholder="e.g. Facebook"
-            autocomplete="off">
+            autocomplete="off"
+            ngModel>
           </div>
           
           <div class="form-inputs">
@@ -93,15 +103,16 @@
             id="media_link" 
             class="median_link" 
             placeholder="e.g. https://www.facebook.com"
-            autocomplete="off">
+            autocomplete="off"
+            ngModel>
           </div>
           
-          <button type="submit" class="social-btn-hide" (click)='onClickSaveChanges()'>Save Changes</button>
+          <button type="submit" class="social-btn-hide" id="social-btn-hide">Save Changes</button>
         </form>
       </div>
 
-
     </div>
-    <button > Add new social media link </button>
+
+    <app-new-link></app-new-link>
   </section>
 </section>

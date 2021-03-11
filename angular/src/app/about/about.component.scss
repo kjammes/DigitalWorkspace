@@ -123,6 +123,7 @@ section.main{
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-around;
+      margin: rem(60px) auto;
       div.link-and-edit {
         font-size: $my-font-size;
         font-family: $nunito;
@@ -145,12 +146,28 @@ section.main{
               transition: all .4s;
             }
           }
+          button.delete-button {
+            font-family: $nunito;
+            font-size: $my-font-size;
+            background-color: red;
+            color: $light-green;
+            border: none;
+            padding: rem(10px) rem(30px);
+            margin: auto rem(20px);
+            margin-left: 30px;
+            &:hover {
+              background-color: lightcoral;
+              transform: scale(1.04);
+              transition: all .4s;
+            }
+          }
           a#to-media {
             color: $dark-green;
             text-transform: capitalize;
             display: inline-block;
+            width: 40vw;
             &:hover {
-              transform: scale(1.1) translateX(3%);
+              transform: scale(1.1) translateX(5%);
               transition: all .4s;
             }
           }
@@ -203,6 +220,7 @@ section.main{
 
       }
     }
+    
   }
 }
 

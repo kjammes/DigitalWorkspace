@@ -14,5 +14,7 @@ export class ShowEditTextService {
   @Output() skillsUpdateSuccess: EventEmitter<string[]> = new EventEmitter();
   @Output() hideNewPostButton: EventEmitter<boolean> = new EventEmitter();
   @Output() searchResults: EventEmitter<any> = new EventEmitter();
+  @Output() newLinkCreated: EventEmitter<any> = new EventEmitter();
+  @Output() hideAddNewLink: EventEmitter<boolean> = new EventEmitter();
   
 }

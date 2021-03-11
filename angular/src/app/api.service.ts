@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -17,7 +17,6 @@ export class ApiService {
   ) {}
 
   @Output() switchToProviderEvent: EventEmitter<boolean> = new EventEmitter();
-  chatWithPersonEvent = new BehaviorSubject<any>('service');
 
   login(formValue: { email: string; password: string }) {
     if (this.storage.getToken()) {
@@ -54,7 +53,7 @@ export class ApiService {
       });
   }
 
-  sendMessage(message: string,to:string) {
+  sendMessage(message: string, to: string) {
     console.log(message);
     this.http
       .post(
@@ -73,19 +72,18 @@ export class ApiService {
       });
   }
 
-  getAboutSkills(user_id?:string): Observable<any> {
-    return this.http
-      .post(
-        'http://localhost:3000/get-about-skills',
-        {
-          user_id
-        },
-        {
-          headers: new HttpHeaders({
-            Authorization: `Bearer ${this.storage.getToken()}`,
-          }),
-        }
-      )
+  getAboutSkills(user_id?: string): Observable<any> {
+    return this.http.post(
+      'http://localhost:3000/get-about-skills',
+      {
+        user_id,
+      },
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
   }
 
   updateUser(text: string, action: string) {
@@ -114,15 +112,17 @@ export class ApiService {
 
   switchToProvider() {
     this.http
-      .post('http://localhost:3000/switch-to-provider',
+      .post(
+        'http://localhost:3000/switch-to-provider',
         {},
         {
           headers: new HttpHeaders({
             Authorization: `Bearer ${this.storage.getToken()}`,
-          })
+          }),
         }
-      ).subscribe((res : { message: string })=>{
-        if( res.message === 'Succesfully switched to provider' ) {
+      )
+      .subscribe((res: { message: string }) => {
+        if (res.message === 'Succesfully switched to provider') {
           // console.log(res.message)
           this.switchToProviderEvent.emit(true);
         }
@@ -130,29 +130,27 @@ export class ApiService {
   }
 
   getProvidersList(): Observable<any> {
-    return this.http
-      .post(
-        'http://localhost:3000/get-provider-list',
-        {},
-        {
-          headers: new HttpHeaders({
-            Authorization: `Bearer ${this.storage.getToken()}`,
-          }),
-        }
-      )
+    return this.http.post(
+      'http://localhost:3000/get-provider-list',
+      {},
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
   }
 
   getConsumersList(): Observable<any> {
-    return this.http
-      .post(
-        'http://localhost:3000/get-consumer-list',
-        {},
-        {
-          headers: new HttpHeaders({
-            Authorization: `Bearer ${this.storage.getToken()}`,
-          }),
-        }
-      )
+    return this.http.post(
+      'http://localhost:3000/get-consumer-list',
+      {},
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
   }
 
   getChats() {
@@ -167,7 +165,7 @@ export class ApiService {
     );
   }
 
-  getUserNameById(id:string) {
+  getUserNameById(id: string) {
     return this.http.post(
       'http://localhost:3000/get-name-by-id',
       {
@@ -181,36 +179,119 @@ export class ApiService {
     );
   }
 
-  createPost(content:string) {
-    this.http.post(
-      'http://localhost:3000/create-post',
-      {
-        content:content,
-      },
-      {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      }
-    ).subscribe( result => {
-      console.log(result);
-    } )
+  createPost(content: string) {
+    this.http
+      .post(
+        'http://localhost:3000/create-post',
+        {
+          content: content,
+        },
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          }),
+        }
+      )
+      .subscribe((result) => {
+        console.log(result);
+      });
   }
 
   getPosts() {
-    return this.http
-      .get('http://localhost:3000/get-posts-list', {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      })
-  }
-
-  getSearchResults(queryS:string) {
-    return this.http.get('http://localhost:3000/get-search-results?query='+queryS, {
+    return this.http.get('http://localhost:3000/get-posts-list', {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.storage.getToken()}`,
       }),
     });
   }
+
+  getSearchResults(queryS: string) {
+    return this.http.get(
+      'http://localhost:3000/get-search-results?query=' + queryS,
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      }
+    );
+  }
+
+  addNewSocialLink(details: { name: string; link: string }) {
+    console.log(details);
+
+    this.http
+      .post(
+        'http://localhost:3000/add-new-social-link',
+        {
+          details,
+        },
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          }),
+        }
+      )
+      .subscribe(
+        (result: {
+          message: string;
+          newLink: {
+            _id: string;
+            socialMediaName: string;
+            link: string;
+          };
+        }) => {
+          console.log(result);
+          this.editEventEmitter.newLinkCreated.emit(result.newLink);
+        }
+      );
+  }
+
+  updateSocialLink(details: {
+    _id: string;
+    socialMediaName: string;
+    link: string;
+  }) {
+    this.http
+      .post(
+        'http://localhost:3000/update-social-link',
+        {
+          details,
+        },
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${this.storage.getToken()}`,
+          }),
+        }
+      )
+      .subscribe(
+        (result: {
+          message: string;
+          updatedLink: Object;
+        }) => {
+          console.log(result);
+        }
+      );
+  }
+
+  deleteSocialLink(details: {
+    _id: string;
+    socialMediaName: string;
+    link: string;
+  }) {
+    const params = new HttpParams().set('_id', details._id);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.storage.getToken()}`,
+    });
+
+    this.http
+      .post(
+        'http://localhost:3000/delete-social-link' ,
+        { _id:details._id },
+        { headers}
+      )
+      .subscribe(
+        (result) => console.log(result)
+      );
+  }
+  
 }

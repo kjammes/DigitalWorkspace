@@ -35,6 +35,11 @@ router.get("/get-posts-list", middleware.authorize, routerCtrl.getPosts);
 //Handling search
 router.get("/get-search-results", middleware.authorize, routerCtrl.getSearchResults);
 
+//Handling Social Media Links
+router.post("/add-new-social-link", middleware.authorize, routerCtrl.addNewSocialLink);
+router.post("/update-social-link", middleware.authorize, routerCtrl.updateSocialLink);
+router.post("/delete-social-link/", middleware.authorize, routerCtrl.deleteSocialLink);
+
 //helper routes
 router.post('/get-name-by-id', middleware.authorize, routerCtrl.getUserNameById);
 

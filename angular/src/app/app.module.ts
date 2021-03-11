@@ -17,6 +17,7 @@ import { AlertComponent } from './alert/alert.component';
 import { EditTextComponent } from './edit-text/edit-text.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { JobFullDescriptionComponent } from './job-full-description/job-full-description.component';
+import { NewLinkComponent } from './new-link/new-link.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { JobFullDescriptionComponent } from './job-full-description/job-full-des
     EditTextComponent,
     CreatePostComponent,
     JobFullDescriptionComponent,
+    NewLinkComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

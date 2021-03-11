@@ -39,10 +39,12 @@ const linkSchema = new mongoose.Schema({
   socialMediaName: {
     type: String,
     required: true,
+    unique: true,
   },
   link: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 
@@ -69,7 +71,10 @@ const userSchema = new mongoose.Schema({
   },
   skills: [String],
   posts: [postSchema],
-  links: [linkSchema],
+  links: {
+    type: [linkSchema],
+    unique: true,
+  }
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -101,3 +106,4 @@ userSchema.methods.getJwt = function () {
 mongoose.model("User", userSchema);
 mongoose.model("Location", locationSchema);
 mongoose.model("Post", postSchema);
+mongoose.model("Link", linkSchema);

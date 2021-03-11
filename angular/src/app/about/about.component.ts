@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { GetLocationService } from '../get-location.service';
@@ -12,8 +13,10 @@ import { ShowEditTextService } from '../show-edit-text.service';
 })
 export class AboutComponent implements OnInit {
   aboutObj = {
+    _id:'',
     about: '',
     skills: [],
+    links: [],
   };
   username: string = null;
 
@@ -25,6 +28,8 @@ export class AboutComponent implements OnInit {
     state: 'N/A',
     city: 'N/A',
   };
+
+  myIddd = this.storage.getParsedToken()._id;
 
   isProvider: boolean = this.storage.getParsedToken().provider;
 
@@ -38,7 +43,8 @@ export class AboutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    document.getElementById('f').style.display = 'none';
+    let formElement = document.getElementById('f');
+    if (formElement) formElement.style.display = 'none';
     this.username = this.storage.getUserName();
 
     this.activatedRoute.queryParams.subscribe((queryParams) => {
@@ -57,6 +63,10 @@ export class AboutComponent implements OnInit {
             for (let curBut of editTextButtons) {
               curBut.style.display = 'none';
             }
+            
+            this.showEditService.hideAddNewLink.emit(true);
+            console.log(res.forDisplay);
+            
           }
         });
       } else {
@@ -64,8 +74,8 @@ export class AboutComponent implements OnInit {
           this.aboutObj = res;
           this.username = this.storage.getUserName();
           this.isProvider = this.storage.getParsedToken().provider;
-          console.log(res);
-          
+          // console.log(res);
+
           document.getElementById('provider-switch').style.display = this
             .isProvider
             ? 'none'
@@ -76,6 +86,7 @@ export class AboutComponent implements OnInit {
           for (let curBut of editTextButtons) {
             curBut.style.display = this.isProvider ? 'inline' : 'flex';
           }
+          this.showEditService.hideAddNewLink.emit(false);
         });
       }
     });
@@ -134,7 +145,14 @@ export class AboutComponent implements OnInit {
     if (this.isProvider) {
       this.showEditService.hideNewPostButton.emit(true);
     }
+
+    this.showEditService.newLinkCreated.subscribe((res) => {
+      console.log(res);
+      
+      this.aboutObj.links.push(res);
+    });
   }
+
 
   onClickEdit(action: string) {
     this.showEditService.editClicked.emit(action);
@@ -150,13 +168,36 @@ export class AboutComponent implements OnInit {
   }
 
   hideEditLinks = true;
-  onClickEditLink() {
+  onClickEditLink(linkObj) {
     this.hideEditLinks = false;
-    document.getElementById('f').style.display = 'flex';
+    let form = document.getElementById('f');
+    if (form) form.style.display = 'flex';
+    this.tempLinkObj = linkObj;
+    // console.log(this.tempLinkObj);
   }
 
-  onClickSaveChanges() {
-    document.getElementById('f').style.display = 'none';
+  tempLinkObj = {
+    _id: "",
+    socialMediaName: "",
+    link: "",
+  }
+  onClickSaveChanges(formForVal:NgForm) {
+    let form = document.getElementById('f');
+    if (form) form.style.display = 'none';
     this.hideEditLinks = true;
+    this.tempLinkObj.socialMediaName = formForVal.value.media_name;
+    this.tempLinkObj.link = formForVal.value.media_link;
+    // console.log(this.tempLinkObj);
+    for (let linkObj of this.aboutObj.links) {
+      if( linkObj._id === this.tempLinkObj._id ) {
+        linkObj = this.tempLinkObj;
+      }
+    }
+    this.apiService.updateSocialLink(this.tempLinkObj);
+  }
+
+  onClickDeleteLink(linkObj) {
+    this.apiService.deleteSocialLink(linkObj);
+    this.aboutObj.links = this.aboutObj.links.filter( data => data._id !== linkObj._id );
   }
 }

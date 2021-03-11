@@ -16,7 +16,6 @@ $qs: 'Quicksand', sans-serif;
 section.list-body {
   margin: rem(72px) auto;
   min-height: rem(500px);
-  max-height: fit-content;
   width: rem(1560px);
   background-color: transparent;
   padding: 0;
@@ -38,6 +37,7 @@ section.list-body {
       height: 100vh;
       text-indent: 0;
       background-color: #fff;
+      overflow-y: auto;
       button.back-button {
         font-size: rem(40px);
         background-color: $green;

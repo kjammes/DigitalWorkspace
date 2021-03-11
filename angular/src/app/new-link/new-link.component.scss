@@ -1,0 +1,65 @@
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+$dark-green: #2F4536;
+$green: #C6EBC9;
+$light-green: #ffff;
+$location-color: #5C8A6B;
+$my-font-size: rem(28px);
+$heading-font: rem(36px);
+$nunito: 'Nunito', sans-serif;
+$qs: 'Quicksand', sans-serif;
+
+.btn {
+  font-family: $nunito;
+  font-size: $my-font-size;
+  background-color: $dark-green;
+  color: $light-green;
+  border: none;
+  padding: rem(10px) rem(30px);
+  margin: rem(30px) auto;
+  margin-bottom: rem(10px);
+  &:hover {
+    opacity: .8;
+    transform: scale(1.04);
+    transition: all .4s;
+  }
+}
+
+div.main {
+  form {
+    margin: rem(30px) auto;
+    background-color: $green;
+    padding: rem(30px);
+    font-size: $my-font-size;
+    font-family: $nunito;
+    color: $dark-green;
+    div.input-group {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: rem(500px);
+      margin-right: rem(30px);
+      input[type="text"] {
+        font-size: $my-font-size;
+        font-family: $nunito;
+        text-indent: rem(10px);
+        border: none;
+        border-bottom: 1px solid $dark-green;
+        margin-top: rem(10px);
+        &:focus,
+        &:active {
+          background-color:  #effff0;
+          border: none;
+          border-bottom: 1px solid $dark-green;
+        }
+      }
+    }
+
+    button[type="submit"] {
+      display: block;
+    }
+    
+  }
+}
