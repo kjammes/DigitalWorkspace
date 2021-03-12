@@ -16,5 +16,6 @@ export class ShowEditTextService {
   @Output() searchResults: EventEmitter<any> = new EventEmitter();
   @Output() newLinkCreated: EventEmitter<any> = new EventEmitter();
   @Output() hideAddNewLink: EventEmitter<boolean> = new EventEmitter();
+  @Output() hideEditComponent: EventEmitter<boolean> = new EventEmitter();
   
 }

@@ -131,36 +131,6 @@ section.main{
         div.link-and-main-edit {
           margin-bottom: rem(30px);
           margin-top: rem(-20px);
-          button.save-button {
-            font-family: $nunito;
-            font-size: $my-font-size;
-            background-color: $dark-green;
-            color: $light-green;
-            border: none;
-            padding: rem(10px) rem(30px);
-            margin: auto rem(20px);
-            margin-left: 30px;
-            &:hover {
-              opacity: .8;
-              transform: scale(1.04);
-              transition: all .4s;
-            }
-          }
-          button.delete-button {
-            font-family: $nunito;
-            font-size: $my-font-size;
-            background-color: red;
-            color: $light-green;
-            border: none;
-            padding: rem(10px) rem(30px);
-            margin: auto rem(20px);
-            margin-left: 30px;
-            &:hover {
-              background-color: lightcoral;
-              transform: scale(1.04);
-              transition: all .4s;
-            }
-          }
           a#to-media {
             color: $dark-green;
             text-transform: capitalize;
@@ -222,6 +192,22 @@ section.main{
     }
     
   }
+
+  section.show-job-posted-by-me {
+    div {
+      font-family: $qs;
+      font-size: $heading-font;
+      color: $dark-green;
+      margin: rem(20px) auto;
+    }
+    ul {
+      list-style: "↱  " outside none;
+      li * {
+        font-size: $my-font-size;
+        font-family: $nunito;
+      }
+    }
+  }
 }
 
 h1.title-heading {
@@ -242,5 +228,36 @@ svg.edit-button {
   &:hover {
     transition: all .3s;
     transform: scale(1.1);
+  }
+}
+
+button.save-button {
+  font-family: $nunito;
+  font-size: $my-font-size;
+  background-color: $dark-green;
+  color: $light-green;
+  border: none;
+  padding: rem(10px) rem(30px);
+  margin: auto rem(20px);
+  margin-left: 30px;
+  &:hover {
+    opacity: .8;
+    transform: scale(1.04);
+    transition: all .4s;
+  }
+}
+button.delete-button {
+  font-family: $nunito;
+  font-size: $my-font-size;
+  background-color: red;
+  color: $light-green;
+  border: none;
+  padding: rem(10px) rem(30px);
+  margin: auto rem(20px);
+  margin-left: 30px;
+  &:hover {
+    background-color: lightcoral;
+    transform: scale(1.04);
+    transition: all .4s;
   }
 }

@@ -22,7 +22,8 @@
       </button>
       <div class="job-desc">
         <h1>JOB DESCRIPTION</h1>
-        {{ jobDesc }}
+        {{ jobDesc }} <br><br>
+        Posted on {{ jobPostedDate | date }}
       </div>
       <div class="jobpostedby">
         Job posted by - {{ jobBy }}
@@ -31,7 +32,8 @@
   </section>
   <section class="list-item" *ngFor="let jobObj of jobPosts">
     <div class="about-user jobdescdiv" (click)="showJobSideBar(jobObj)" >
-      {{ jobObj.content }}
+      {{ jobObj.content }} <br><br>
+      Posted on &nbsp; {{ jobObj.date | date }}
     </div>
     <h1 class="username jobdesc">Job posted by - <em> {{ jobObj.posted_by_name }} </em> </h1>
     <button (click)="showAbout(jobObj)" class="btn btn-check-profile" > Check Profile </button>

@@ -66,6 +66,7 @@ export class ProviderConsumerListComponent implements OnInit {
 
   jobDesc:string;
   jobBy:string;
+  jobPostedDate: any;
   hideSideJobBar = true;
   showJobSideBar(jobObj: {
     _id: string,
@@ -77,5 +78,6 @@ export class ProviderConsumerListComponent implements OnInit {
     this.hideSideJobBar = false;
     this.jobBy = jobObj.posted_by_name;
     this.jobDesc = jobObj.content;
+    this.jobPostedDate = jobObj.date;
   }
 }

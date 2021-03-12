@@ -28,7 +28,7 @@ export class NewLinkComponent implements OnInit {
   onSubmit(form:NgForm) {
     this.hideForm = true;
     const linkObj = form.value;
-    console.log(linkObj);
+    // console.log(linkObj);
     this.api.addNewSocialLink(linkObj);
   }
 }

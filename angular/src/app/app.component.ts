@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
     this.editTextService.saveClicked.subscribe((val)=>{
       this.isHidden = true;
     })
+
+    this.editTextService.hideEditComponent.subscribe( hide => this.isHidden = hide )
   }
   
 }

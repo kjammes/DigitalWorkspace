@@ -4,7 +4,6 @@ const User = mongoose.model("User");
 const fetch = require("node-fetch");
 const Post = mongoose.model("Post");
 const LinkModel = mongoose.model("Link");
-const ObjectID = require("mongodb").ObjectID;
 
 //Login Register
 const registerUser = ({ body }, res) => {
@@ -88,7 +87,7 @@ const returnLocation = async (req, res) => {
       state = responseJson.results[0].locations[0].adminArea3;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       return res.json({ error: err });
     });
   res.json({
@@ -100,8 +99,8 @@ const returnLocation = async (req, res) => {
 
 //handling about and skills
 const getUserData = function (req, res) {
-  let user_id = req.body.user_id;
-  if ( user_id ) {
+  let user_id = req.params.user_id;
+  if (user_id) {
     console.log("If userid");
     User.findOne({ _id: user_id }, "-password -salt", (err, newUser) => {
       if (err) {
@@ -162,12 +161,16 @@ const updateAboutSection = function (req, res) {
 
 //handling provider switch
 const switchToProvider = function (req, res) {
-  User.updateOne({ _id: req.payload._id }, { provider: true , posts: [] }, (err, res) => {
-    if (err) {
-      return res.json({ err: err });
+  User.updateOne(
+    { _id: req.payload._id },
+    { provider: true, posts: [] },
+    (err, res) => {
+      if (err) {
+        return res.json({ err: err });
+      }
+      console.log("Succesfully switched to provider", res);
     }
-    console.log("Succesfully switched to provider", res);
-  });
+  );
   res.json({ message: "Succesfully switched to provider" });
 };
 
@@ -240,17 +243,19 @@ const createPost = function ({ body, payload }, res) {
       if (err) {
         return res.json({ err: err });
       }
-      return res.status(201).json({ message: "Created post", newPost: newPost });
+      return res
+        .status(201)
+        .json({ message: "Created post", newPost: newPost });
     });
   });
 };
 
-const getPosts = function( req, res ) {
+const getPosts = function (req, res) {
   User.find({}, "posts", function (err, users) {
     var postsList = [];
 
     users.forEach(function (user) {
-      for( let post of user.posts ) {
+      for (let post of user.posts) {
         postsList.push(post);
       }
     });
@@ -264,7 +269,7 @@ const getSearchResults = function ({ query, payload }, res) {
   if (!query.query) {
     return res.json({ err: "Missing a query." });
   }
-  if( payload.provider ) {
+  if (payload.provider) {
     User.find({}, "posts", function (err, users) {
       var postsList = [];
 
@@ -272,8 +277,7 @@ const getSearchResults = function ({ query, payload }, res) {
       users.forEach(function (user) {
         for (let post of user.posts) {
           let OK = re.exec(post.content);
-          if( OK )
-            postsList.push(post);
+          if (OK) postsList.push(post);
         }
       });
 
@@ -281,22 +285,20 @@ const getSearchResults = function ({ query, payload }, res) {
     });
   } else {
     User.find(
-      { username: { $regex: query.query, $options: "i" },provider:true },
+      { username: { $regex: query.query, $options: "i" }, provider: true },
       (err, results) => {
         if (err) {
           return res.json({ err: err });
         }
-  
-        return res
-          .status(200)
-          .send(results);
+
+        return res.status(200).send(results);
       }
     );
   }
 };
 
 //Social media links
-const addNewSocialLink = function(req,res) {
+const addNewSocialLink = function (req, res) {
   if (!req.body.details) {
     return res.status(400).json({
       message: "Insufficient data sent with the request.",
@@ -327,16 +329,16 @@ const addNewSocialLink = function(req,res) {
         .json({ message: "Successfully Added New Link", newLink: newLink });
     });
   });
-}
+};
 
-const updateSocialLink = function(req,res) {
+const updateSocialLink = function (req, res) {
   if (!req.body.details) {
     return res.status(400).json({
       message: "Insufficient data sent with the request.",
     });
   }
 
-  console.log(req.body.details);
+  // console.log(req.body.details);
 
   let userId = req.payload._id;
 
@@ -350,20 +352,22 @@ const updateSocialLink = function(req,res) {
         "links.$.socialMediaName": req.body.details.socialMediaName,
         "links.$.link": req.body.details.link,
       },
-    }, function( err,success ) {
-      if( err ) return res.json({err});
+    },
+    function (err, success) {
+      if (err) return res.json({ err });
       res.json({
         message: "Successfully updated the value",
-        success
-      })
+        success,
+      });
     }
   );
-}
 
-const deleteSocialLink = function(req,res) {
+};
+
+const deleteSocialLink = function (req, res) {
   console.log("Delete social link");
-  console.log("Params",req.params);
-  console.log("Query",req.query);
+  console.log("Params", req.params);
+  console.log("Query", req.query);
   console.log(req.body);
   if (!req.body._id) {
     return res.status(400).json({
@@ -372,9 +376,10 @@ const deleteSocialLink = function(req,res) {
   }
 
   let userId = req.payload._id;
-  let linkId = req.body._id;
+  let linkId = req.body._id || req.query.id;
   console.log(req.params);
   console.log(linkId);
+  console.log(userId);
 
   User.findOneAndUpdate(
     {
@@ -388,7 +393,7 @@ const deleteSocialLink = function(req,res) {
       },
     },
     function (err,result) {
-      if (err){ 
+      if (err){
         console.log("faced an issue");
         return res.json({ err })
       };
@@ -397,8 +402,60 @@ const deleteSocialLink = function(req,res) {
       });
     }
   );
-}
 
+  // User.findById(userId, (err, user) => {
+  //   user.links = user.links.filter((data) => data._id !== linkId);
+
+  //   user.save((err) => {
+  //     if (err) return res.json({ err });
+
+  //     return res.json({
+  //       message: "Successfully deleted the link!",
+  //     });
+  //   });
+  // });
+};
+
+const removeSocialLink = function ({ params, body, payload }, res) {
+  console.log("Params", params);
+  console.log("Body", body);
+  console.log("Payload", payload);
+  return res.json({ message: "print" });
+};
+
+const deletePost = function( {params, payload}, res ) {
+  console.log(params,payload);
+  if (!params.id) {
+    return res.status(400).json({
+      message: "Insufficient data sent with the request.",
+    });
+  }
+
+  let userId = payload._id;
+  let postId = params.id;
+  User.findOneAndUpdate(
+    {
+      _id: userId,
+    },
+    {
+      $pull: {
+        posts: {
+          _id: postId,
+        },
+      },
+    },
+    function (err, result) {
+      if (err) {
+        console.log("faced an issue");
+        return res.json({ err });
+      }
+      res.json({
+        message: "Successfully deleted the link",
+        result,
+      });
+    }
+  );
+}
 
 //for testing only
 const deleteAllUsers = function (req, res) {
@@ -419,6 +476,7 @@ const getAllUsers = function (req, res) {
   });
 };
 
+
 module.exports = {
   registerUser,
   loginUser,
@@ -436,5 +494,7 @@ module.exports = {
   getSearchResults,
   addNewSocialLink,
   updateSocialLink,
-  deleteSocialLink
+  deleteSocialLink,
+  removeSocialLink,
+  deletePost
 };

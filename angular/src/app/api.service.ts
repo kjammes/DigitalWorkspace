@@ -53,37 +53,23 @@ export class ApiService {
       });
   }
 
-  sendMessage(message: string, to: string) {
-    console.log(message);
-    this.http
-      .post(
-        `http://localhost:3000/send-message/601e928aefdce60924d4fb51`,
-        {
-          message: message,
-        },
+  getAboutSkills(user_id?: string): Observable<any> {
+    if(user_id) {
+      return this.http.get('http://localhost:3000/get-about-skills/' + user_id, {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      });
+    } else {
+      return this.http.get(
+        'http://localhost:3000/get-about-skills/',
         {
           headers: new HttpHeaders({
             Authorization: `Bearer ${this.storage.getToken()}`,
           }),
         }
-      )
-      .subscribe((res) => {
-        console.log(res);
-      });
-  }
-
-  getAboutSkills(user_id?: string): Observable<any> {
-    return this.http.post(
-      'http://localhost:3000/get-about-skills',
-      {
-        user_id,
-      },
-      {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      }
-    );
+      );
+    }
   }
 
   updateUser(text: string, action: string) {
@@ -130,9 +116,8 @@ export class ApiService {
   }
 
   getProvidersList(): Observable<any> {
-    return this.http.post(
+    return this.http.get(
       'http://localhost:3000/get-provider-list',
-      {},
       {
         headers: new HttpHeaders({
           Authorization: `Bearer ${this.storage.getToken()}`,
@@ -142,21 +127,8 @@ export class ApiService {
   }
 
   getConsumersList(): Observable<any> {
-    return this.http.post(
+    return this.http.get(
       'http://localhost:3000/get-consumer-list',
-      {},
-      {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      }
-    );
-  }
-
-  getChats() {
-    return this.http.post(
-      'http://localhost:3000/get-chats',
-      {},
       {
         headers: new HttpHeaders({
           Authorization: `Bearer ${this.storage.getToken()}`,
@@ -278,7 +250,6 @@ export class ApiService {
     socialMediaName: string;
     link: string;
   }) {
-    const params = new HttpParams().set('_id', details._id);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storage.getToken()}`,
     });
@@ -292,6 +263,26 @@ export class ApiService {
       .subscribe(
         (result) => console.log(result)
       );
+    
+      // this.http
+      //   .delete(`http://localhost:3000/remove-social-link/${details._id}`, 
+      //   {
+      //     headers,
+      //   }
+      //   ).subscribe((result) => console.log(result));
+  }
+
+  deletePost(id:string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.storage.getToken()}`,
+    });
+
+    this.http
+      .post(`http://localhost:3000/delete-post/${id}`, {} ,
+      {
+        headers,
+      })
+      .subscribe((result) => console.log(result));
   }
   
 }

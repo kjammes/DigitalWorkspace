@@ -26,4 +26,8 @@ export class EditTextComponent implements OnInit {
     this.showEditService.saveClicked.emit(this.text);
     this.apiService.updateUser(this.text,this.action);
   }
+
+  onCancel() {
+    this.showEditService.hideEditComponent.emit(true);
+  }
 }

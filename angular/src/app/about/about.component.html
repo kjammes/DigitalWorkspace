@@ -74,7 +74,7 @@
           <button class="save-button social-btn-hide" (click)="onClickEditLink(linkObj)" [hidden]="!hideEditLinks" *ngIf='myIddd === aboutObj._id'> Edit Link </button>
           <button class="delete-button social-btn-hide" (click)="onClickDeleteLink(linkObj)" [hidden]="!hideEditLinks" *ngIf='myIddd === aboutObj._id'> Delete Link </button>
         </div>
-        <div class="currently-updating" *ngIf="!!tempLinkObj.socialMediaName" style="margin-bottom: 10px;">
+        <div class="currently-updating" [hidden]="!showCurrentlyEditingDiv" style="margin-bottom: 10px;">
           Currently updating link to {{ tempLinkObj.socialMediaName }}
         </div>
         <form id="f" (submit)="onClickSaveChanges(f)" #f="ngForm" >
@@ -114,5 +114,22 @@
     </div>
 
     <app-new-link></app-new-link>
+  </section>
+  <section class="show-job-posted-by-me" *ngIf="!isProvider">
+    <div> Jobs Posted </div>
+    <ul class="for-for-loop" *ngFor="let postItem of aboutObj.posts">
+      <li>
+        <div class="job-desc">
+          {{ postItem.content }} 
+        </div>
+        <div class="posted-date">
+          Posted on {{ postItem.date | date}}
+        </div>
+        <button 
+        class="delete-button" 
+        (click)="deletePost(postItem._id)" 
+        *ngIf="postItem.post_by === myIddd"> Delete </button>
+      </li>
+    </ul>
   </section>
 </section>

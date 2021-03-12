@@ -12,11 +12,12 @@ import { ShowEditTextService } from '../show-edit-text.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  aboutObj = {
+  aboutObj: any = {
     _id:'',
     about: '',
     skills: [],
     links: [],
+    posts: [],
   };
   username: string = null;
 
@@ -74,7 +75,7 @@ export class AboutComponent implements OnInit {
           this.aboutObj = res;
           this.username = this.storage.getUserName();
           this.isProvider = this.storage.getParsedToken().provider;
-          // console.log(res);
+          console.log(res);
 
           document.getElementById('provider-switch').style.display = this
             .isProvider
@@ -174,6 +175,7 @@ export class AboutComponent implements OnInit {
     if (form) form.style.display = 'flex';
     this.tempLinkObj = linkObj;
     // console.log(this.tempLinkObj);
+    this.showCurrentlyEditingDiv = true;
   }
 
   tempLinkObj = {
@@ -181,6 +183,7 @@ export class AboutComponent implements OnInit {
     socialMediaName: "",
     link: "",
   }
+  showCurrentlyEditingDiv = false;
   onClickSaveChanges(formForVal:NgForm) {
     let form = document.getElementById('f');
     if (form) form.style.display = 'none';
@@ -194,10 +197,16 @@ export class AboutComponent implements OnInit {
       }
     }
     this.apiService.updateSocialLink(this.tempLinkObj);
+    this.showCurrentlyEditingDiv = false;
   }
 
   onClickDeleteLink(linkObj) {
     this.apiService.deleteSocialLink(linkObj);
     this.aboutObj.links = this.aboutObj.links.filter( data => data._id !== linkObj._id );
+  }
+
+  deletePost(id) {
+    this.apiService.deletePost(id);
+    this.aboutObj.posts = this.aboutObj.posts.filter( data => data._id !== id );
   }
 }
