@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ShowEditTextService } from './show-edit-text.service';
+import { EventEmitterService } from './event-emitter.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { ShowEditTextService } from './show-edit-text.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private editTextService: ShowEditTextService
+    private editTextService: EventEmitterService
   ) {}
   isHidden = true;
 

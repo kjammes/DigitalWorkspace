@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { GetLocationService } from '../get-location.service';
 import { LocalStorageService } from '../local-storage.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-about',
@@ -37,7 +37,7 @@ export class AboutComponent implements OnInit {
   constructor(
     private storage: LocalStorageService,
     private getLocation: GetLocationService,
-    private showEditService: ShowEditTextService,
+    private showEditService: EventEmitterService,
     private apiService: ApiService,
     private router: Router,
     private activatedRoute: ActivatedRoute

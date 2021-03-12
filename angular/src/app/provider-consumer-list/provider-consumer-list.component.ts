@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { LocalStorageService } from '../local-storage.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-provider-consumer-list',
@@ -19,7 +19,7 @@ export class ProviderConsumerListComponent implements OnInit {
   constructor(
     private storage: LocalStorageService,
     private api: ApiService,
-    private eventService: ShowEditTextService,
+    private eventService: EventEmitterService,
     private router: Router
   ) {}
 

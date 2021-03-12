@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-edit-text',
@@ -9,7 +9,7 @@ import { ShowEditTextService } from '../show-edit-text.service';
 })
 export class EditTextComponent implements OnInit {
   constructor(
-    private showEditService: ShowEditTextService,
+    private showEditService: EventEmitterService,
     private apiService: ApiService) {}
 
   action:string = "about";

@@ -364,22 +364,9 @@ const updateSocialLink = function (req, res) {
 
 };
 
-const deleteSocialLink = function (req, res) {
-  console.log("Delete social link");
-  console.log("Params", req.params);
-  console.log("Query", req.query);
-  console.log(req.body);
-  if (!req.body._id) {
-    return res.status(400).json({
-      message: "Insufficient data sent with the request.",
-    });
-  }
-
-  let userId = req.payload._id;
-  let linkId = req.body._id || req.query.id;
-  console.log(req.params);
-  console.log(linkId);
-  console.log(userId);
+const removeSocialLink = function ({ params, body, payload }, res) {
+  let linkId = params.id;
+  let userId = payload._id;
 
   User.findOneAndUpdate(
     {
@@ -392,39 +379,20 @@ const deleteSocialLink = function (req, res) {
         },
       },
     },
-    function (err,result) {
-      if (err){
+    function (err, result) {
+      if (err) {
         console.log("faced an issue");
-        return res.json({ err })
-      };
+        return res.json({ err });
+      }
       res.json({
-        message: "Successfully deleted the link", result
+        message: "Successfully deleted the link",
+        result,
       });
     }
   );
-
-  // User.findById(userId, (err, user) => {
-  //   user.links = user.links.filter((data) => data._id !== linkId);
-
-  //   user.save((err) => {
-  //     if (err) return res.json({ err });
-
-  //     return res.json({
-  //       message: "Successfully deleted the link!",
-  //     });
-  //   });
-  // });
-};
-
-const removeSocialLink = function ({ params, body, payload }, res) {
-  console.log("Params", params);
-  console.log("Body", body);
-  console.log("Payload", payload);
-  return res.json({ message: "print" });
 };
 
 const deletePost = function( {params, payload}, res ) {
-  console.log(params,payload);
   if (!params.id) {
     return res.status(400).json({
       message: "Insufficient data sent with the request.",
@@ -494,7 +462,6 @@ module.exports = {
   getSearchResults,
   addNewSocialLink,
   updateSocialLink,
-  deleteSocialLink,
   removeSocialLink,
   deletePost
 };

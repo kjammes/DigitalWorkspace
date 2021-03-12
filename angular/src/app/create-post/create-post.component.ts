@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-create-post',
@@ -14,7 +14,7 @@ export class CreatePostComponent implements OnInit {
 
 
   constructor( private api:ApiService,
-    private eventS:ShowEditTextService,
+    private eventS:EventEmitterService,
     private router:Router ) { }
 
   ngOnInit(): void {

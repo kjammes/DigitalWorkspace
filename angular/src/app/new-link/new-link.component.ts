@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-new-link',
@@ -13,7 +13,7 @@ export class NewLinkComponent implements OnInit {
   hideForm = true;
 
   constructor(private api:ApiService,
-    private events:ShowEditTextService) { }
+    private events:EventEmitterService) { }
 
   ngOnInit(): void {
     this.events.hideAddNewLink.subscribe( val => {

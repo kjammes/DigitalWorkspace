@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { ShowEditTextService } from './show-edit-text.service';
+import { EventEmitterService } from './event-emitter.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class ApiService {
     private http: HttpClient,
     private storage: LocalStorageService,
     private router: Router,
-    private editEventEmitter: ShowEditTextService
+    private editEventEmitter: EventEmitterService
   ) {}
 
   @Output() switchToProviderEvent: EventEmitter<boolean> = new EventEmitter();
@@ -54,21 +54,21 @@ export class ApiService {
   }
 
   getAboutSkills(user_id?: string): Observable<any> {
-    if(user_id) {
-      return this.http.get('http://localhost:3000/get-about-skills/' + user_id, {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      });
-    } else {
+    if (user_id) {
       return this.http.get(
-        'http://localhost:3000/get-about-skills/',
+        'http://localhost:3000/get-about-skills/' + user_id,
         {
           headers: new HttpHeaders({
             Authorization: `Bearer ${this.storage.getToken()}`,
           }),
         }
       );
+    } else {
+      return this.http.get('http://localhost:3000/get-about-skills/', {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storage.getToken()}`,
+        }),
+      });
     }
   }
 
@@ -116,25 +116,19 @@ export class ApiService {
   }
 
   getProvidersList(): Observable<any> {
-    return this.http.get(
-      'http://localhost:3000/get-provider-list',
-      {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      }
-    );
+    return this.http.get('http://localhost:3000/get-provider-list', {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getToken()}`,
+      }),
+    });
   }
 
   getConsumersList(): Observable<any> {
-    return this.http.get(
-      'http://localhost:3000/get-consumer-list',
-      {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${this.storage.getToken()}`,
-        }),
-      }
-    );
+    return this.http.get('http://localhost:3000/get-consumer-list', {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getToken()}`,
+      }),
+    });
   }
 
   getUserNameById(id: string) {
@@ -235,14 +229,9 @@ export class ApiService {
           }),
         }
       )
-      .subscribe(
-        (result: {
-          message: string;
-          updatedLink: Object;
-        }) => {
-          console.log(result);
-        }
-      );
+      .subscribe((result: { message: string; updatedLink: Object }) => {
+        console.log(result);
+      });
   }
 
   deleteSocialLink(details: {
@@ -255,34 +244,21 @@ export class ApiService {
     });
 
     this.http
-      .post(
-        'http://localhost:3000/delete-social-link' ,
-        { _id:details._id },
-        { headers}
-      )
-      .subscribe(
-        (result) => console.log(result)
-      );
-    
-      // this.http
-      //   .delete(`http://localhost:3000/remove-social-link/${details._id}`, 
-      //   {
-      //     headers,
-      //   }
-      //   ).subscribe((result) => console.log(result));
+      .delete(`http://localhost:3000/remove-social-link/${details._id}`, {
+        headers,
+      })
+      .subscribe((result) => console.log(result));
   }
 
-  deletePost(id:string) {
+  deletePost(id: string) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storage.getToken()}`,
     });
 
     this.http
-      .post(`http://localhost:3000/delete-post/${id}`, {} ,
-      {
+      .delete(`http://localhost:3000/delete-post/${id}`, {
         headers,
       })
       .subscribe((result) => console.log(result));
   }
-  
 }

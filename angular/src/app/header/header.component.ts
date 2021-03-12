@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { LocalStorageService } from '../local-storage.service';
-import { ShowEditTextService } from '../show-edit-text.service';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     private storage: LocalStorageService,
     private router: Router,
     private api:ApiService,
-    private eventService:ShowEditTextService
+    private eventService:EventEmitterService
   ) {}
 
   ngOnInit(): void {

@@ -39,7 +39,7 @@ router.get('/get-provider-list', middleware.authorize, routerCtrl.getProvidersLi
 //Handling posts
 router.post("/create-post", middleware.authorize, routerCtrl.createPost);
 router.get("/get-posts-list", middleware.authorize, routerCtrl.getPosts);
-router.post("/delete-post/:id", middleware.authorize, routerCtrl.deletePost);
+router.delete("/delete-post/:id", middleware.authorize, routerCtrl.deletePost);
 
 //Handling search
 router.get("/get-search-results", middleware.authorize, routerCtrl.getSearchResults);
@@ -47,7 +47,6 @@ router.get("/get-search-results", middleware.authorize, routerCtrl.getSearchResu
 //Handling Social Media Links
 router.post("/add-new-social-link", middleware.authorize, routerCtrl.addNewSocialLink);
 router.post("/update-social-link", middleware.authorize, routerCtrl.updateSocialLink);
-router.post("/delete-social-link/", middleware.authorize, routerCtrl.deleteSocialLink);
 router.delete("/remove-social-link/:id", middleware.authorize, routerCtrl.removeSocialLink);
 
 //helper routes
