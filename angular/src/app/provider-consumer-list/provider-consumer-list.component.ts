@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { LocalStorageService } from '../local-storage.service';
 import { EventEmitterService } from '../event-emitter.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-provider-consumer-list',
@@ -20,11 +21,13 @@ export class ProviderConsumerListComponent implements OnInit {
     private storage: LocalStorageService,
     private api: ApiService,
     private eventService: EventEmitterService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) {}
 
   ngOnInit(): any {
     if (this.isProvider) {
+      this.title.setTitle('Job Lists - Digital Workspace'); 
       this.api.getPosts().subscribe((result) => {
         // console.log(result);
         if (result) {
@@ -33,6 +36,7 @@ export class ProviderConsumerListComponent implements OnInit {
       });
       this.eventService.searchResults.subscribe((res) => (this.jobPosts = res));
     } else if (!this.isProvider) {
+      this.title.setTitle('Freelancers List - Digital Workspace'); 
       this.api.getProvidersList().subscribe((res: []) => {
         // console.log(res);
         this.userObjArr = res;

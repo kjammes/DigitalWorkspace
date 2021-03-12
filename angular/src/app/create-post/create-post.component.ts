@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
 import { ApiService } from '../api.service';
 import { EventEmitterService } from '../event-emitter.service';
 
@@ -15,9 +17,11 @@ export class CreatePostComponent implements OnInit {
 
   constructor( private api:ApiService,
     private eventS:EventEmitterService,
-    private router:Router ) { }
+    private router:Router,
+    private title:Title ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Create Job Post - Digital Workspace'); 
   }
 
   onSubmit(form:NgForm) {

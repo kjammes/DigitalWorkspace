@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { GetLocationService } from '../get-location.service';
 import { LocalStorageService } from '../local-storage.service';
 import { EventEmitterService } from '../event-emitter.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about',
@@ -40,10 +41,12 @@ export class AboutComponent implements OnInit {
     private showEditService: EventEmitterService,
     private apiService: ApiService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private title: Title,
   ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('About You - Digital Workspace'); 
     let formElement = document.getElementById('f');
     if (formElement) formElement.style.display = 'none';
     this.username = this.storage.getUserName();
@@ -56,6 +59,7 @@ export class AboutComponent implements OnInit {
           // console.log(res);
           this.isProvider = res.provider;
           this.username = res.username;
+          this.title.setTitle(`About ${res.username} - Digital Workspace`);
           if (res.forDisplay) {
             document.getElementById('provider-switch').style.display = 'none';
             let editTextButtons: any = document.getElementsByClassName(
@@ -71,6 +75,7 @@ export class AboutComponent implements OnInit {
           }
         });
       } else {
+        this.title.setTitle('About You - Digital Workspace'); 
         this.apiService.getAboutSkills().subscribe((res) => {
           this.aboutObj = res;
           this.username = this.storage.getUserName();

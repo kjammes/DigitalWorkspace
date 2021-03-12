@@ -36,9 +36,9 @@ app.use("/", (req, res, next) => {
 });
 
 app.use('/', indexRouter);
-// app.get("*", function (req, res, next) {
-//   res.sendFile(path.join(__dirname, "angular", "build", "index.html"));
-// });
+app.get("*", function (req, res, next) {
+  res.sendFile(path.join(__dirname, "angular", "build", "index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
