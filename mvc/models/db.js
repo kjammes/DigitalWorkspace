@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-let dbURI = "mongodb://localhost/DigitalWorkspace";
+let dbURI = "mongodb://127.0.0.1:27017/DigitalWorkspace";
 
 if (process.env.NODE_ENV === "production") {
   dbURI = process.env.MONGODB_URI;
